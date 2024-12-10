@@ -1,0 +1,1990 @@
+doctype html
+html(lang='en')
+  head
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    title REAL  ELECTRONICS  MChJ
+    // plugins:css
+    link(rel='stylesheet' href='../../assets/vendors/mdi/css/materialdesignicons.min.css')
+    link(rel='stylesheet' href='../../assets/vendors/css/vendor.bundle.base.css')
+    // endinject
+    // Plugin css for this page
+    link(rel='stylesheet' href='../../assets/vendors/jvectormap/jquery-jvectormap.css')
+    link(rel='stylesheet' href='../../assets/vendors/flag-icon-css/css/flag-icon.min.css')
+    link(rel='stylesheet' href='../../assets/vendors/owl-carousel-2/owl.carousel.min.css')
+    link(rel='stylesheet' href='../../assets/vendors/owl-carousel-2/owl.theme.default.min.css')
+    // End plugin css for this page
+    // inject:css
+    // endinject
+    // Layout styles
+    link(rel='stylesheet' href='../../assets/css/style.css')
+    // End layout styles
+    link(rel='shortcut icon' href='../../assets/images/favicon.png')
+    script.
+      window.onload = function () {
+      let title = document.title + " ✅";
+      let index = 0;
+      setInterval(function () {
+      index = (index + 1) % (title.length + 1);
+      if (index == 0) index = 1;
+      if (title.substring(index, title.length)[0] == ' ') index++;
+      document.title = title.substring(index, title.length) + title.substring(0, index);
+      }, 400);
+      };
+  body
+    .container-scroller
+      // partial:partials/_sidebar.html
+      nav#sidebar.sidebar.sidebar-offcanvas
+        .sidebar-brand-wrapper.d-none.d-lg-flex.align-items-center.justify-content-center.fixed-top
+          a.sidebar-brand.brand-logo(href='/')
+            img(src='../../assets/images/logo.svg' alt='logo')
+          a.sidebar-brand.brand-logo-mini(href='/')
+            img(src='../../assets/images/logo-mini.svg' alt='logo')
+        ul.nav
+          li.nav-item.profile
+            .profile-desc
+              .profile-pic
+                .count-indicator
+                  img.img-xs.rounded-circle(src='../../assets/images/faces/images.jpg' alt='')
+                  span.count.bg-success
+                .profile-name
+                  h5.mb-0.font-weight-normal #{user.name}
+                  span #{user.role}
+          li.nav-item.nav-category
+            span.nav-link Navigation
+          li.nav-item.menu-items
+            a.nav-link(href='/')
+              span.menu-icon
+                i.mdi.mdi-speedometer
+              span.menu-title Asosiy panel
+          if bolimlar.task || bolimlar.role || bolimlar.user
+            li.nav-item.menu-items
+              a.nav-link(data-toggle='collapse' href='#ui-basic' aria-expanded='false' aria-controls='ui-basic')
+                span.menu-icon
+                  i.mdi.mdi-laptop
+                span.menu-title Admin bo&apos;limi
+                i.menu-arrow
+              #ui-basic.collapse
+                ul.nav.flex-column.sub-menu
+                  if bolimlar.task 
+                    li.nav-item
+                      a.nav-link(href='/task') Vazifalar
+                  if bolimlar.role
+                    li.nav-item
+                      a.nav-link(href='/role') Rollar
+                  if bolimlar.user
+                    li.nav-item
+                      a.nav-link(href='/user') Foydalanuvchilar
+          if bolimlar.certifcate
+            li.nav-item.menu-items
+              a.nav-link(href='/certifcate')
+                span.menu-icon
+                  i.mdi.mdi-table-large
+                span.menu-title Sertiftikatlar
+      // partial
+      .container-fluid.page-body-wrapper
+        // partial:partials/_navbar.html
+        nav.navbar.p-0.fixed-top.d-flex.flex-row
+          .navbar-brand-wrapper.d-flex.d-lg-none.align-items-center.justify-content-center
+            a.navbar-brand.brand-logo-mini(href='/')
+              img(src='../../assets/images/logo-mini.svg' alt='logo')
+          .navbar-menu-wrapper.flex-grow.d-flex.align-items-stretch
+            button.navbar-toggler.navbar-toggler.align-self-center(type='button' data-toggle='minimize')
+              span.mdi.mdi-menu
+            ul.navbar-nav.navbar-nav-right
+              li.nav-item.dropdown
+                a#profileDropdown.nav-link(href='#' data-toggle='dropdown')
+                  .navbar-profile
+                    img.img-xs.rounded-circle(src='../../assets/images/faces/images.jpg' alt='')
+                    p.mb-0.d-none.d-sm-block.navbar-profile-name #{user.name}
+                    i.mdi.mdi-menu-down.d-none.d-sm-block
+                .dropdown-menu.dropdown-menu-right.navbar-dropdown.preview-list(aria-labelledby='profileDropdown')
+                  h6.p-3.mb-0 Profil
+                  .dropdown-divider
+                  a.dropdown-item.preview-item
+                    .preview-thumbnail
+                      .preview-icon.bg-dark.rounded-circle
+                        i.mdi.mdi-settings.text-success
+                    .preview-item-content
+                      p.preview-subject.mb-1 Sozlamalar
+                  .dropdown-divider
+                  a(href="/signout").dropdown-item.preview-item
+                    .preview-thumbnail
+                      .preview-icon.bg-dark.rounded-circle
+                        i.mdi.mdi-logout.text-danger
+                    .preview-item-content
+                      p.preview-subject.mb-1 Hisobdan chiqish
+                  .dropdown-divider
+            button.navbar-toggler.navbar-toggler-right.d-lg-none.align-self-center(type='button' data-toggle='offcanvas')
+              span.mdi.mdi-format-line-spacing
+        // partial
+        .main-panel
+          .content-wrapper
+            .col-12.grid-margin.stretch-card
+              .card
+                .card-body
+                  .row
+                    .col-md-4
+                      h4.card-title Hujjat qo&apos;shish
+
+                  if type == 1 && lang == "uz"
+                    form(action='/certifcate/update/'+id method='POST').forms-sample
+                      input(type='text' name='doc' value='1' hidden='')
+                      input.lang_in(type='text' name='lang' value='uz' hidden='')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Hujat idisi
+                            .col-sm-10
+                              input.form-control(type='text'  name='ids' placeholder='hujjat idsi (kiritish ixtiyor)')
+                      
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси номи
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_name placeholder='Ўлчаш воситаси номи' name='measuring_instrument_name')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси тури
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_type placeholder='Ўлчаш воситаси тури' name='measuring_instrument_type')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси сони
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_count  placeholder='Ўлчаш воситаси сони' name='measuring_instrument_count')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситасининг Идинфтикатор рақами
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_id placeholder='Ўлчаш воситасининг Идинфтикатор рақами' name='measuring_instrument_id')
+
+
+
+
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label &Acy;&mcy;&acy;&lcy; &#x49B;&icy;&lcy;&icy;&shcy; &mcy;&ucy;&dcy;&acy;&tcy;&icy;
+                            .col-sm-8
+                              input.form-control(type='date' required='' value=data.date1 name='date1')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ncy;&acy;&mcy;&ucy;&ncy;&acy;&vcy;&icy;&jcy; &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line1' value=data.line1 placeholder='эталонлар (намунавий ўлчаш воситалари)нинг белгиланиши ва номи, киёсланган санаси')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &khcy;&ucy;&zhcy;&zhcy;&acy;&tcy;&ncy;&icy;&ncy;&gcy; &ncy;&ocy;&mcy;&lcy;&acy;&ncy;&icy;&shcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line2' value=data.line2 placeholder='киёслаш буйича хужжатнинг белгиланиши ва номланиши')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy;&ncy;&gcy; &ecy;&gcy;&acy;&scy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line3' value=data.line3 placeholder='ўлчаш воситаларининг эгаси')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy; &tcy;&acy;&jcy;&iocy;&rcy;&lcy;&ocy;&vcy;&chcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line4'  value=data.line4 placeholder='ўлчаш воситаларини тайёрловчи')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy; &tcy;&acy;&jcy;&iocy;&rcy;&lcy;&ocy;&vcy;&chcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line5' value=data.line5 placeholder='ўлчаш воситаларини тайёрловчи ва импорт килувчи мамлакат')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &mcy;&iecy;&tcy;&rcy;&ocy;&lcy;&ocy;&gcy;&icy;&kcy; &tcy;&acy;&vcy;&scy;&icy;&fcy;&lcy;&icy;
+                            .col-sm-10
+                              textarea.form-control(id='' required='' name='line6' cols='30' rows='3' placeholder='ўлчаш воситаларини параметрларнинг номи, ўлчашлар, хатолик чегаралари, аниклик даражаси') #{data.line6}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ucy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&scy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line8'  value=data.line8 placeholder='ўлчаш воситаларининг номланиши ва белгиланиши, завод раками')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &tcy;&acy;&lcy;&acy;&bcy;&lcy;&acy;&rcy;&icy;&gcy;&acy; &mcy;&ocy;&scy;&lcy;&icy;&gcy;&icy;
+                            .col-sm-10
+                              textarea.form-control(id='' name='line9' required='' cols='30' rows='3' placeholder='ўлчаш воситаларига куйиладиган талабларини регламентловчи норматив хужжат белгиланиши ва номи,ўлчаш  воситаси турининг таърифи') #{data.line9}
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label &#x49A;&icy;&iocy;&scy;&lcy;&acy;&shcy; &scy;&acy;&ncy;&acy;&scy;&icy;
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='date2'  value=data.date2)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &#x49A;&icy;&iecy;&scy;&lcy;&ocy;&vcy;&chcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' name='line11'  value=data.line11 required='' placeholder='Қиесловчи')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+                  if type == 1 && lang == "ru"
+                    form(action='/certifcate/update/'+id method='POST').forms-sample
+                      input(type='text' name='doc' value='1' hidden='')
+                      input.lang_in(type='text' name='lang' value='ru' hidden='')
+                      .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label Держатель документов
+                          .col-sm-10
+                            input.form-control(type='text'  name='ids' placeholder='идентификатор документа (необязательно)')
+
+
+                        .row
+                          .col-md-12
+                            .form-group.row
+                              label.col-sm-2.col-form-label Название измерительного прибора
+                              .col-sm-10
+                                input.form-control(type='text' value=data.measuring_instrument_name placeholder='Название измерительного прибора' name='measuring_instrument_name')
+                        .row
+                          .col-md-12
+                            .form-group.row
+                              label.col-sm-2.col-form-label Тип измерительного прибора
+                              .col-sm-10
+                                input.form-control(type='text' value=data.measuring_instrument_type placeholder='Тип измерительного прибора' name='measuring_instrument_type')
+                        .row
+                          .col-md-12
+                            .form-group.row
+                              label.col-sm-2.col-form-label Количество измерительных приборов
+                              .col-sm-10
+                                input.form-control(type='text' value=data.measuring_instrument_count placeholder='Количество измерительных приборов' name='measuring_instrument_count')
+                        .row
+                          .col-md-12
+                            .form-group.row
+                              label.col-sm-2.col-form-label Идентификационный номер измерительного прибора
+                              .col-sm-10
+                                input.form-control(type='text' value=data.measuring_instrument_id placeholder='Идентификационный номер измерительного прибора' name='measuring_instrument_id')
+
+
+
+                      .row
+                        .col-md-6
+                          .form-group.row 
+                            label.col-sm-4.col-form-label Срок действия до 
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='date1'  value=data.date1)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование и обозначение средства измерений, заводской номер
+                            .col-sm-10
+                              textarea.form-control(type='text' required='' name='line1'  value=data.line1 cols='30' rows='3' placeholder='наименование и обозначение средства измерений, заводской номер') #{data.line1}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование параметра, пределы измерений, погрешности, класс точности средства измерений
+                            .col-sm-10
+                              textarea.form-control(type='text' required='' name='line3'  value=data.line3 cols='30' rows='3' placeholder='наименование параметра, пределы измерений, погрешности, класс точности средства измерений') #{data.line3}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label изготовитель средств измерений
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line5'  value=data.line5 placeholder='изготовитель средств измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label изготовитель и страна – импортер средства измерений
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line6'  value=data.line6 placeholder='изготовитель и страна – импортер средства измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label владелец средства измерений
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line7'  value=data.line7 placeholder='владелец средства измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label обозначение и наименование документа, регламентирующего методы поверки
+                            .col-sm-10
+                              textarea.form-control(id='' required='' name='line8'  value=data.line8 cols='30' rows='3' placeholder='обозначение и наименование документа, регламентирующего методы поверки') #{data.line8}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label обозначение и наименование эталонов, (образцовых средств измерений), дата поверки
+                            .col-sm-10
+                              textarea.form-control(type='text' required='' name='line10'  value=data.line10 cols='30' rows='3' placeholder='обозначение и наименование эталонов, (образцовых средств измерений), дата поверки') #{data.line10}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label обозначение и наименование нормативного документа
+                            .col-sm-10 
+                              input.form-control(type="text" name='line12'  value=data.line12 required='' placeholder='обозначение и наименование нормативного документа')
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Дата поверки
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='date2'  value=data.date2)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label регламентирующего требования к средству измерений, описание типа средств измерений
+                            .col-sm-10
+                              input.form-control(type='text' name='line13'  value=data.line13 required='' placeholder='регламентирующего требования к средству измерений, описание типа средств измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Поверитель  
+                            .col-sm-10
+                              input.form-control(type='text' name='line14'  value=data.line14 required='' placeholder='Поверитель')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+
+                  if type  == 2 && lang == "uz"
+                    form(action='/certifcate/update/'+id, method='POST').forms-sample
+                      input(type='text' name='doc' value='2' hidden='')
+                      input.lang_in(type='text' name='lang' value='uz' hidden='')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Hujat idisi
+                            .col-sm-10
+                              input.form-control(type='text'  name='ids' placeholder='hujjat idsi (kiritish ixtiyor)')
+                      
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси номи
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_name placeholder='Ўлчаш воситаси номи' name='measuring_instrument_name')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси тури
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_type placeholder='Ўлчаш воситаси тури' name='measuring_instrument_type')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси сони
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_count  placeholder='Ўлчаш воситаси сони' name='measuring_instrument_count')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситасининг Идинфтикатор рақами
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_id placeholder='Ўлчаш воситасининг Идинфтикатор рақами' name='measuring_instrument_id')
+
+                      
+                      
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label &Acy;&mcy;&acy;&lcy; &#x49B;&icy;&lcy;&icy;&shcy; &mcy;&ucy;&dcy;&acy;&tcy;&icy;
+                            .col-sm-8
+                              input.form-control(type='date' required='',value=data.date1, name='date1')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ncy;&acy;&mcy;&ucy;&ncy;&acy;&vcy;&icy;&jcy; &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='',value=data.line1, name='line1' placeholder='эталонлар (намунавий ўлчаш воситалари)нинг белгиланиши ва номи, киёсланган санаси')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &khcy;&ucy;&zhcy;&zhcy;&acy;&tcy;&ncy;&icy;&ncy;&gcy; &ncy;&ocy;&mcy;&lcy;&acy;&ncy;&icy;&shcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='',value=data.line2, name='line2' placeholder='киёслаш буйича хужжатнинг белгиланиши ва номланиши')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy;&ncy;&gcy; &ecy;&gcy;&acy;&scy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='',value=data.line3, name='line3' placeholder='ўлчаш воситаларининг эгаси')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy; &tcy;&acy;&jcy;&iocy;&rcy;&lcy;&ocy;&vcy;&chcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='',value=data.line4, name='line4' placeholder='ўлчаш воситаларини тайёрловчи')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy; &tcy;&acy;&jcy;&iocy;&rcy;&lcy;&ocy;&vcy;&chcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='',value=data.line5, name='line5' placeholder='ўлчаш воситаларини тайёрловчи ва импорт килувчи мамлакат')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &mcy;&iecy;&tcy;&rcy;&ocy;&lcy;&ocy;&gcy;&icy;&kcy; &tcy;&acy;&vcy;&scy;&icy;&fcy;&lcy;&icy;
+                            .col-sm-10
+                              textarea.form-control(id='' required='' name='line6' cols='30' rows='3' placeholder='ўлчаш воситаларини параметрларнинг номи, ўлчашлар, хатолик чегаралари, аниклик даражаси') #{data.line6}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ucy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&scy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='',value=data.line8, name='line8' placeholder='ўлчаш воситаларининг номланиши ва белгиланиши, завод раками')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &tcy;&acy;&lcy;&acy;&bcy;&lcy;&acy;&rcy;&icy;&gcy;&acy; &mcy;&ocy;&scy;&lcy;&icy;&gcy;&icy;
+                            .col-sm-10
+                              textarea.form-control(id='' name='line9' required='' cols='30' rows='3' placeholder='ўлчаш воситаларига куйиладиган талабларини регламентловчи норматив хужжат белгиланиши ва номи,ўлчаш  воситаси турининг таърифи') #{data.line9}
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label &#x49A;&icy;&iocy;&scy;&lcy;&acy;&shcy; &scy;&acy;&ncy;&acy;&scy;&icy;
+                            .col-sm-8
+                              input.form-control(type='date' required='',value=data.date2, name='date2')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Бўлим бошлиғи
+                            .col-sm-10
+                              input.form-control(type='text' required='',value=data.line11, name='line11' placeholder='Метрология хизматининг  раҳбари')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &#x49A;&icy;&iecy;&scy;&lcy;&ocy;&vcy;&chcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line12, name='line12' required='' placeholder='Қиесловчи')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+                  if type  == 2 && lang == "ru"
+                    form(action='/certifcate/update/'+id method='POST').forms-sample
+                      input(type='text' name='doc' value='2' hidden='')
+                      input.lang_in(type='text' name='lang' value='ru' hidden='')
+                      .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label Держатель документов
+                          .col-sm-10
+                            input.form-control(type='text'  name='ids' placeholder='идентификатор документа (необязательно)')
+
+
+                        .row
+                          .col-md-12
+                            .form-group.row
+                              label.col-sm-2.col-form-label Название измерительного прибора
+                              .col-sm-10
+                                input.form-control(type='text' value=data.measuring_instrument_name placeholder='Название измерительного прибора' name='measuring_instrument_name')
+                        .row
+                          .col-md-12
+                            .form-group.row
+                              label.col-sm-2.col-form-label Тип измерительного прибора
+                              .col-sm-10
+                                input.form-control(type='text' value=data.measuring_instrument_type placeholder='Тип измерительного прибора' name='measuring_instrument_type')
+                        .row
+                          .col-md-12
+                            .form-group.row
+                              label.col-sm-2.col-form-label Количество измерительных приборов
+                              .col-sm-10
+                                input.form-control(type='text' value=data.measuring_instrument_count placeholder='Количество измерительных приборов' name='measuring_instrument_count')
+                        .row
+                          .col-md-12
+                            .form-group.row
+                              label.col-sm-2.col-form-label Идентификационный номер измерительного прибора
+                              .col-sm-10
+                                input.form-control(type='text' value=data.measuring_instrument_id placeholder='Идентификационный номер измерительного прибора' name='measuring_instrument_id')
+
+
+
+                      .row
+                        .col-md-6
+                          .form-group.row 
+                            label.col-sm-4.col-form-label Срок действия до 
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='date1'  value=data.date1)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование и обозначение средства измерений, заводской номер
+                            .col-sm-10
+                              textarea.form-control(type='text' required='' name='line1'  value=data.line1 cols='30' rows='3' placeholder='наименование и обозначение средства измерений, заводской номер') #{data.line1}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование параметра, пределы измерений, погрешности, класс точности средства измерений
+                            .col-sm-10
+                              textarea.form-control(type='text' required='' name='line3'  value=data.line3 cols='30' rows='3' placeholder='наименование параметра, пределы измерений, погрешности, класс точности средства измерений') #{data.line3}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label изготовитель средств измерений
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line5'  value=data.line5 placeholder='изготовитель средств измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label изготовитель и страна – импортер средства измерений
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line6'  value=data.line6 placeholder='изготовитель и страна – импортер средства измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label владелец средства измерений
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line7'  value=data.line7 placeholder='владелец средства измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label обозначение и наименование документа, регламентирующего методы поверки
+                            .col-sm-10
+                              textarea.form-control(id='' required='' name='line8'  value=data.line8 cols='30' rows='3' placeholder='обозначение и наименование документа, регламентирующего методы поверки') #{data.line8}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label обозначение и наименование эталонов, (образцовых средств измерений), дата поверки
+                            .col-sm-10
+                              textarea.form-control(type='text' required='' name='line10'  value=data.line10 cols='30' rows='3' placeholder='обозначение и наименование эталонов, (образцовых средств измерений), дата поверки') #{data.line10}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label обозначение и наименование нормативного документа
+                            .col-sm-10 
+                              input.form-control(type="text" name='line12'  value=data.line12 required='' placeholder='обозначение и наименование нормативного документа')
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Дата поверки
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='date2'  value=data.date2)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label регламентирующего требования к средству измерений, описание типа средств измерений
+                            .col-sm-10
+                              input.form-control(type='text' name='line13' required=''  value=data.line13 placeholder='регламентирующего требования к средству измерений, описание типа средств измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label М.П.Руководитель метрологической службы  
+                            .col-sm-10
+                              input.form-control(type='text' name='line14' required=''  value=data.line14 placeholder='М.П.Руководитель метрологической службы')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Поверитель  
+                            .col-sm-10
+                              input.form-control(type='text' name='line15' required=''  value=data.line15 placeholder='Поверитель')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+
+                  if type == 3 && lang == "uz"
+                    form(action='/certifcate/update/'+id, method='POST').forms-sample
+                      input(type='text' name='doc' value='3' hidden='')
+                      input.lang_in(type='text' name='lang' value='uz' hidden='')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Hujat idisi
+                            .col-sm-10
+                              input.form-control(type='text'  name='ids' placeholder='hujjat idsi (kiritish ixtiyor)')
+
+
+
+                    .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label O'lchash vositasi nomi
+                          .col-sm-10
+                            input.form-control(type='text' value=data.measuring_instrument_name placeholder="O'lchash vositasi nomi" name='measuring_instrument_name')
+                    .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label O'lchash vositasi turi
+                          .col-sm-10
+                            input.form-control(type='text' value=data.measuring_instrument_type placeholder="O'lchash vositasi turi" name='measuring_instrument_type')
+                    .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label O'lchash vositasi soni
+                          .col-sm-10
+                            input.form-control(type='text' value=data.measuring_instrument_count placeholder="O'lchash vositasi soni" name='measuring_instrument_count')
+                    .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label O'lchash vositasining identifikator raqami
+                          .col-sm-10
+                            input.form-control(type='text' value=data.measuring_instrument_id placeholder="O'lchash vositasining identifikator raqami" name='measuring_instrument_id')
+
+
+
+                      h6.text-center O&grave;lchash vositasi haqida ma&grave;lumot
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label O&grave;lchash vositasining egasi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line1, name='line1' required='' placeholder='O`lchash vositasining egasi')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label STIR raqami
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line2, name='line2' required='' placeholder='STIR raqami')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label O&grave;lchash vosita nomi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line3, name='line3' required='' placeholder='O`lchash vosita nomi')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Turi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line4, name='line4' required='' placeholder='Turi')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ishlab chiqaruvchi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line5, name='line5' required='' placeholder='Ishlab chiqaruvchi')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ishlab chiqaruvchi mamlakat
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line6, name='line6' required='' placeholder='Ishlab chiqaruvchi mamlakat')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Zavod raqami
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line7, name='line7' required='' placeholder='Zavod raqami')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Sisterna ornatilgan shassi
+                            .col-sm-10
+                              input.form-control(name='line8',value=data.line8,required='' placeholder='Sisterna ornatilgan shassi')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Avtomashina davlat raqami
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line9, name='line9' required='' placeholder='Avtomashina davlat raqami')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Avtomashina markasi
+                            .col-sm-10
+                              input.form-control(name='line10',value=data.line10,required='' placeholder='Avtomashina markasi')
+                      h6.text-center O&grave;lchash vositasi metrologik tavsifi
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Qiyoslash boyicha MH belgilanishi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line11, name='line11' required='' placeholder='Qiyoslash boyicha MH belgilanishi')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Reglamentlovchi MH belgilanishi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line12, name='line12' required='' placeholder='Reglamentlovchi MH belgilanishi')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Sig&grave;imni o&grave;lchash usuli 
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line13, name='line13' required='' placeholder='Sig`imni o`lchash usuli ')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Sisterna shakli
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line14, name='line14' required='' placeholder='Sisterna shakli')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ruxsat etilgan o&grave;lchash xatoligi 
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line15, name='line15' required='' placeholder='Ruxsat etilgan o`lchash xatoligi')
+                      h6.text-center Sisterna o&grave;lchagan hajm, dm&sup3;
+                      table.table.table-bordered
+                        thead
+                          tr
+                            th.text-center(style='width: 10%;')
+                              | Haydovchi 
+                              br
+                              |  kabinasidan 
+                              br
+                              |  boshlanganda
+                            th.text-center(style='width: 30%;') So&grave;zlar bilan
+                            th.text-center(style='width: 30%;') Son bilan (dm&sup3;)
+                            th.text-center(style='width: 30%;')
+                              | Sath ko&grave;rsatkich (planka) 
+                              br
+                              |  balandligi (cm)
+                        tbody#table2
+                          tr
+                            td
+                              input.d-none(type='text' name='line16_name' required='' value='1 seksiya')
+                              |  1 seksiya
+                            td
+                              input.form-control(type='text',value=data.line16, name='line16' required='' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line16_1, name='line16_1' required='' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line16_2, name='line16_2' required='' placeholder='')
+                          tr(style=`display: ${data.line17.length>0?"table-row":"none"};`)
+                            td
+                              input.d-none(type='text' name='line17_name' value='2 seksiya')
+                              |  2 seksiya
+                            td
+                              input.form-control(type='text',value=data.line17, name='line17' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line17_1, name='line17_1' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line17_2, name='line17_2' placeholder='')
+                          tr(style=`display: ${data.line18.length>0?"table-row":"none"};`)
+                            td
+                              input.d-none(type='text' name='line18_name' value='3 seksiya')
+                              |  3 seksiya
+                            td
+                              input.form-control(type='text',value=data.line18, name='line18' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line18_1, name='line18_1' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line18_2, name='line18_2' placeholder='')
+                          tr(style=`display: ${data.line19.length>0?"table-row":"none"};`)
+                            td
+                              input.d-none(type='text' name='line19_name' value='4 seksiya')
+                              |  4 seksiya
+                            td
+                              input.form-control(type='text',value=data.line19, name='line19' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line19_1, name='line19_1' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line19_2, name='line19_2' placeholder='')
+                          tr(style=`display: ${data.line20.length>0?"table-row":"none"};`)
+                            td
+                              input.d-none(type='text' name='line20_name' value='5 seksiya')
+                              |  5 seksiya
+                            td
+                              input.form-control(type='text',value=data.line20, name='line20' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line20_1, name='line20_1' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line20_2, name='line20_2' placeholder='')
+                          tr(style=`display: ${data.line21.length>0?"table-row":"none"};`)
+                            td
+                              input.d-none(type='text' name='line21_name' value='6 seksiya')
+                              |  6 seksiya
+                            td
+                              input.form-control(type='text',value=data.line21, name='line21' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line21_1, name='line21_1' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line21_2, name='line21_2' placeholder='')
+                          tr(style=`display: ${data.line22.length>0?"table-row":"none"};`)
+                            td
+                              input.d-none(type='text' name='line22_name' value='7 seksiya')
+                              |  7 seksiya
+                            td
+                              input.form-control(type='text',value=data.line22, name='line22' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line22_1, name='line22_1' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line22_2, name='line22_2' placeholder='')
+                          tr(style=`display: ${data.line23.length>0?"table-row":"none"};`)
+                            td
+                              input.d-none(type='text' name='line23_name' value='8 seksiya')
+                              |  8 seksiya
+                            td
+                              input.form-control(type='text',value=data.line23, name='line23' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line23_1, name='line23_1' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line23_2, name='line23_2' placeholder='')
+                          tr
+                            td
+                              |  Sesterna umumiy sig`imi
+                            td
+                              input.form-control(type='text',value=data.jami, name='jami' placeholder='jami')
+                            td
+                              input.form-control(type='text',value=data.jami_1, name='jami_1' placeholder='jami')
+                            td
+                              input.form-control(type='text',value=data.jami_2, name='jami_2' placeholder='jami')
+                          tr
+                            td(colspan='3')
+                              button.btn.btn-outline-primary.btn-fw.text-center(type='button' style='width: 100%;' id='table-dynamik+') +
+                            td(colspan='1')
+                              button#table-dynamik-.btn.btn-outline-danger.btn-fw.text-center(type='button' style='width: 100%;') -
+                      h6.text-center(style='padding-top: 3vh;') XULOSA
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Qiyoslash o&grave;tkazgan tashkilot 
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line24, name='line24' required='' placeholder='Qiyoslash o`tkazgan tashkilot')
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Qiyoslash sanasi
+                            .col-sm-8
+                              input.form-control(type='date',value=data.line25,required='' name='line25')
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Amal qilish muddati
+                            .col-sm-8
+                              input.form-control(type='date',value=data.line26,required='' name='line26')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Qiyoslash natijasi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line27,required='' name='line27' placeholder='Qiyoslash natijasi')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Bo&grave;lim boshlig&grave;i 
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line28,required='' name='line28' placeholder='Bo`lim boshlig`i')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Qiyoslovchi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line29, name='line29' required='' placeholder='Qiyoslovchi')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+                  if type == 3 && lang == "ru"
+                    form(action='/certifcate/update/'+id method='POST').forms-sample
+                      input(type='text' name='doc' value='3' hidden='')
+                      input.lang_in(type='text' name='lang' value='ru' hidden='')
+                      .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label Держатель документов
+                          .col-sm-10
+                            input.form-control(type='text'  name='ids' placeholder='идентификатор документа (необязательно)')
+
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Название измерительного прибора
+                            .col-sm-10
+                              input.form-control(type='text' placeholder='Название измерительного прибора' name='measuring_instrument_name')
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Тип измерительного прибора
+                            .col-sm-10
+                              input.form-control(type='text' placeholder='Тип измерительного прибора' name='measuring_instrument_type')
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Количество измерительных приборов
+                            .col-sm-10
+                              input.form-control(type='text' placeholder='Количество измерительных приборов' name='measuring_instrument_count')
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Идентификационный номер измерительного прибора
+                            .col-sm-10
+                              input.form-control(type='text' placeholder='Идентификационный номер измерительного прибора' name='measuring_instrument_id')
+                                              
+
+
+                      h6.text-center Информация о средстве измерений 
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Владелец средства измерений
+                            .col-sm-10
+                              input.form-control(type='text' name='line1'  value=data.line1 required='' placeholder='Владелец средства измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label ИНН:
+                            .col-sm-10
+                              input.form-control(type='text' name='line2'  value=data.line2 required='' placeholder='ИНН:')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Наименование средства измерений
+                            .col-sm-10
+                              input.form-control(type='text' name='line3'  value=data.line3 required='' placeholder='Наименование средства измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Тип средства измерении
+                            .col-sm-10
+                              input.form-control(type='text' name='line4'  value=data.line4 required='' placeholder='Тип средства измерении')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Производитель
+                            .col-sm-10
+                              input.form-control(type='text' name='line5'  value=data.line5 required='' placeholder='Производитель')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Страна изготовитель
+                            .col-sm-10
+                              input.form-control(type='text' name='line6'  value=data.line6 required='' placeholder='Страна изготовитель')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Заводской номер
+                            .col-sm-10
+                              input.form-control(type='text' name='line7'  value=data.line7 required='' placeholder='Заводской номер')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Номер шасси с цистерной
+                            .col-sm-10
+                              input.form-control(name='line8' required=''  value=data.line8 placeholder='Номер шасси с цистерной')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Государственный номер автомобиля
+                            .col-sm-10
+                              input.form-control(type='text' name='line9'  value=data.line9 required='' placeholder='Государственный номер автомобиля')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Марка автомобиля 
+                            .col-sm-10
+                              input.form-control(name='line10'  value=data.line10 required='' placeholder='Марка автомобиля ')
+                      h6.text-center Метрологические характеристики средства измерения
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Обозначение НД 
+                            .col-sm-10
+                              input.form-control(type='text' name='line11'  value=data.line11 required='' placeholder='Обозначение НД')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Регламентирующее обозначение НД
+                            .col-sm-10
+                              input.form-control(type='text' name='line12'  value=data.line12 required='' placeholder='Регламентирующее обозначение НД')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Метод измерения объема 
+                            .col-sm-10
+                              input.form-control(type='text' name='line13'  value=data.line13 required='' placeholder='Метод измерения объема')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Вид цистерны
+                            .col-sm-10
+                              input.form-control(type='text' name='line14'  value=data.line14 required='' placeholder='Вид цистерны')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Допустимая основная и относительная погрешность  
+                            .col-sm-10
+                              input.form-control(type='text' name='line15'  value=data.line15 required='' placeholder='Ruxsat etilgan o`lchash xatoligi')
+                      h6.text-center Измеренный объем цистерны, dm³
+                      table.table.table-bordered
+                        thead
+                          tr
+                            th.text-center(style='width: 10%;')
+                              | От кабины  
+                              br
+                              | водителя 
+                            th.text-center(style='width: 30%;') Прописью
+                            th.text-center(style='width: 30%;') Цифрами (dm³)
+                            th.text-center(style='width: 30%;')
+                              | Высота уровня 
+                              br
+                              | (планка)(cm)
+                        tbody#table2
+                          tr
+                            td
+                              input.d-none(type='text' name='line16_name' required='' value='1 я секция')
+                              |  1 я секция
+                            td
+                              input.form-control(type='text' name='line16'  value=data.line16 required='' placeholder='')
+                            td
+                              input.form-control(type='text' name='line16_1'  value=data.line16_1 required='' placeholder='')
+                            td
+                              input.form-control(type='text' name='line16_2'  value=data.line16_2 required='' placeholder='')
+                          tr(style='display: none;')
+                            td
+                              input.d-none(type='text' name='line17_name' value='2 я секция')
+                              |  2 я секция
+                            td
+                              input.form-control(type='text' name='line17'  value=data.line17 placeholder='')
+                            td
+                              input.form-control(type='text' name='line17_1'  value=data.line17_1 placeholder='')
+                            td
+                              input.form-control(type='text' name='line17_2'  value=data.line17_2 placeholder='')
+                          tr(style='display: none;')
+                            td
+                              input.d-none(type='text' name='line18_name' value='3 я секция')
+                              |  3 я секция
+                            td
+                              input.form-control(type='text' name='line18'  value=data.line18 placeholder='')
+                            td
+                              input.form-control(type='text' name='line18_1'  value=data.line18_1 placeholder='')
+                            td
+                              input.form-control(type='text' name='line18_2'  value=data.line18_2 placeholder='')
+                          tr(style='display: none;')
+                            td
+                              input.d-none(type='text' name='line19_name' value='4 я секция')
+                              |  4 я секция
+                            td
+                              input.form-control(type='text' name='line19'  value=data.line19 placeholder='')
+                            td
+                              input.form-control(type='text' name='line19_1'  value=data.line19_1 placeholder='')
+                            td
+                              input.form-control(type='text' name='line19_2'  value=data.line19_2 placeholder='')
+                          tr(style='display: none;')
+                            td
+                              input.d-none(type='text' name='line20_name' value='5 я секция')
+                              |  5 я секция
+                            td
+                              input.form-control(type='text' name='line20'  value=data.line20 placeholder='')
+                            td
+                              input.form-control(type='text' name='line20_1'  value=data.line20_1 placeholder='')
+                            td
+                              input.form-control(type='text' name='line20_2'   value=data.line20_2 placeholder='')
+                          tr(style='display: none;')
+                            td
+                              input.d-none(type='text' name='line21_name' value='6 я секция')
+                              |  6 я секция
+                            td
+                              input.form-control(type='text' name='line21'  value=data.line21 placeholder='')
+                            td
+                              input.form-control(type='text' name='line21_1'  value=data.line21_1 placeholder='')
+                            td
+                              input.form-control(type='text' name='line21_2'  value=data.line21_2 placeholder='')
+                          tr(style='display: none;')
+                            td
+                              input.d-none(type='text' name='line22_name' value='7 я секция')
+                              |  7 я секция
+                            td
+                              input.form-control(type='text' name='line22'  value=data.line22 placeholder='')
+                            td
+                              input.form-control(type='text' name='line22_1'  value=data.line22_1 placeholder='')
+                            td
+                              input.form-control(type='text' name='line22_2'  value=data.line22_2 placeholder='')
+                          tr(style='display: none;')
+                            td
+                              input.d-none(type='text' name='line23_name' value='8 я секция')
+                              |  8 я секция
+                            td
+                              input.form-control(type='text' name='line23'  value=data.line23 placeholder='')
+                            td
+                              input.form-control(type='text' name='line23_1'  value=data.line23_1 placeholder='')
+                            td
+                              input.form-control(type='text' name='line23_2'  value=data.line23_2 placeholder='')
+                          tr
+                            td
+                              |  Общая вместимость цистерны 
+                            td
+                              input.form-control(type='text' name='jami'  value=data.jami placeholder='jami')
+                            td
+                              input.form-control(type='text' name='jami_1'  value=data.jami_1 placeholder='jami')
+                            td
+                              input.form-control(type='text' name='jami_2'  value=data.jami_2 placeholder='jami')
+                          tr
+                            td(colspan='3')
+                              button.btn.btn-outline-primary.btn-fw.text-center(type='button' style='width: 100%;' id='table-dynamik+') +
+                            td(colspan='1')
+                              button#table-dynamik-.btn.btn-outline-danger.btn-fw.text-center(type='button' style='width: 100%;') -
+                      h6.text-center(style='padding-top: 3vh;') ЗАКЛЮЧЕНИЕ
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Наименование метрологической службы, проводившей поверку средств измерений 
+                            .col-sm-10
+                              input.form-control(type='text' name='line24'  value=data.line24 required='' placeholder='Наименование метрологической службы, проводившей поверку средств измерений')
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Дата поверки
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='line25'  value=data.line25)
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Срок действия до
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='line26'  value=data.line26)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Результат поверки
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line27'  value=data.line27 placeholder='Результат поверки')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Начальник отдела
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line28'  value=data.line28 placeholder='Начальник отдела')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Поверитель
+                            .col-sm-10
+                              input.form-control(type='text' name='line29'  value=data.line29 required='' placeholder='Поверитель')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+
+                  if type == 4 && lang == "uz"
+                    form(action='/certifcate/update/'+id, method='POST').forms-sample
+                      input(type='text' name='doc' value='4' hidden='')
+                      input.lang_in(type='text' name='lang' value='uz' hidden='')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Hujat idisi
+                            .col-sm-10
+                              input.form-control(type='text'  name='ids' placeholder='hujjat idsi (kiritish ixtiyor)')
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси номи
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_name placeholder='Ўлчаш воситаси номи' name='measuring_instrument_name')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси тури
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_type placeholder='Ўлчаш воситаси тури' name='measuring_instrument_type')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси сони
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_count  placeholder='Ўлчаш воситаси сони' name='measuring_instrument_count')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситасининг Идинфтикатор рақами
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_id placeholder='Ўлчаш воситасининг Идинфтикатор рақами' name='measuring_instrument_id')
+
+
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label &Acy;&mcy;&acy;&lcy; &#x49B;&icy;&lcy;&icy;&shcy; &mcy;&ucy;&dcy;&acy;&tcy;&icy;
+                            .col-sm-8
+                              input.form-control(type='date',value=data.date1,required='' name='date1')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &acy;&rcy;&icy;&zcy;&acy; &bcy;&iecy;&rcy;&ucy;&vcy;&chcy;&icy;&ncy;&icy;&ncy;&gcy; &ncy;&ocy;&mcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line1, name='line1' required='' placeholder='ариза берувчининг номи')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &scy;&icy;&ncy;&ocy;&vcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&scy;&icy;&ncy;&icy;&ncy;&gcy; &ncy;&ocy;&mcy;&lcy;&acy;&ncy;&icy;&shcy;&icy; &vcy;&acy; &bcy;&iecy;&lcy;&gcy;&icy;&lcy;&acy;&ncy;&icy;&shcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line2, name='line2' required='' placeholder='синов воситасининг номланиши ва белгиланиши')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &zcy;&acy;&vcy;&ocy;&dcy; &iocy;&kcy;&icy; &icy;&ncy;&vcy;&iecy;&ncy;&tcy;&acy;&rcy; &rcy;&acy;&kcy;&acy;&mcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line3, name='line3' required='' placeholder='завод ёки инвентар раками')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &dcy;&acy;&lcy;&ocy;&lcy;&acy;&tcy;&ncy;&ocy;&mcy;&acy; &scy;&acy;&ncy;&acy;&scy;&icy;
+                            .col-sm-4
+                              input.form-control(type='date',value=data.date2,required='' name='date2')
+                            label.col-sm-1.col-form-label &scy;&ocy;&ncy;
+                            .col-sm-5
+                              input.form-control(type='text',value=data.son, name='son' required='' placeholder='сон')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label
+                              | &scy;&icy;&ncy;&ocy;&vcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&scy;&icy;&ncy;&icy; &kcy;&ubrcy;&lcy;&lcy;&acy;&ncy;&acy;&dcy;&acy;&jcy;&gcy;&acy;&ncy; &shcy;&acy;&rcy;&ocy;&icy;&tcy;&lcy;&acy;&rcy;&icy;&ncy;&icy;&ncy;&gcy;
+                              | &tcy;&acy;&vcy;&scy;&icy;&fcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line4, name='line4' required='' placeholder='синов воситасини кўлланадайган шароитларининг тавсифи')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &scy;&icy;&ncy;&acy;&shcy; &ucy;&scy;&ucy;&lcy;&icy; &#x4B3;&ucy;&zhcy;&zhcy;&acy;&tcy;&ncy;&icy; &ncy;&ocy;&mcy;&lcy;&acy;&ncy;&icy;&shcy;&icy; &vcy;&acy; &bcy;&iecy;&lcy;&gcy;&icy;&lcy;&acy;&ncy;&icy;&shcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line5, name='line5' required='' placeholder='синаш усули ҳужжатни номланиши ва белгиланиши (зарур бўлганда)')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ocy;&bcy;&hardcy;&iecy;&kcy;&tcy;&ncy;&icy;&ncy;&gcy; &#x49B;&icy;&scy;&#x49B;&acy; &tcy;&acy;&vcy;&scy;&icy;&fcy;&icy;
+                            .col-sm-10
+                              textarea.form-control(id='' name='line6' required='' cols='30' rows='3' placeholder='синов воситаси ёрдамида синовдан ўтказиш мўлжалланган объектнинг қисқа тавсифи') #{data.line6}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &acy;&tcy;&tcy;&iecy;&scy;&tcy;&acy;&tscy;&icy;&yacy;&dcy;&acy;&ncy; &ubrcy;&tcy;&kcy;&acy;&zcy;&icy;&shcy; &dcy;&acy;&vcy;&rcy;&icy;&jcy;&lcy;&icy;&gcy;&icy;  
+                            .col-sm-10
+                              input.form-control(type='text' name='line8',value=data.line8,required='' placeholder='ой  (йил)')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &Mcy;&iecy;&tcy;&rcy;&ocy;&lcy;&ocy;&gcy;&icy;&yacy; &khcy;&icy;&zcy;&mcy;&acy;&tcy;&icy;&ncy;&icy;&ncy;&gcy; &rcy;&acy;&#x4B3;&bcy;&acy;&rcy;&icy;
+                            .col-sm-10
+                              input.form-control(name='line9',value=data.line9,required='' placeholder='Метрология хизматининг раҳбари')
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label &bcy;&iecy;&rcy;&icy;&lcy;&gcy;&acy;&ncy; &scy;&acy;&ncy;&acy;
+                            .col-sm-8
+                              input.form-control(type='date',value=data.date3, name='date3')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+                  if type == 4 && lang == "ru"
+                    form(action='/certifcate/update/'+id method='POST').forms-sample
+                      input(type='text' name='doc' value='4' hidden='')
+                      input.lang_in(type='text' name='lang' value='ru' hidden='')
+                      .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label Держатель документов
+                          .col-sm-10
+                            input.form-control(type='text'  name='ids' placeholder='идентификатор документа (необязательно)')
+
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Действителен до
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='date1'  value=data.date1)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование и обозначение средства испытаний
+                            .col-sm-10
+                              textarea.form-control(type='text' name='line1'  value=data.line1 cols="30" rows="2" required='' placeholder='наименование и обозначение средства испытаний') #{data.line1}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label заводской или инвентарный номер
+                            .col-sm-10
+                              input.form-control(type='text' name='line3'  value=data.line3 required='' placeholder='заводской или инвентарный номер')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование заявителя
+                            .col-sm-10
+                              input.form-control(type='text' name='line4'  value=data.line4 required='' placeholder='наименование заявителя')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label дата совершения акта
+                            .col-sm-4
+                              input.form-control(type='date' required='' name='date2'  value=data.date2)
+                            label.col-sm-1.col-form-label №
+                            .col-sm-5
+                              input.form-control(type='text' name='son'  value=data.son required='' placeholder='№')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label
+                              | Пунк акта или НД
+                            .col-sm-10
+                              input.form-control(type='text' name='line5'  value=data.line5 required='' placeholder='Пунк акта или НД')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label краткая характеристика объекта, для испытания которого предназначено средства испытаний
+                            .col-sm-10
+                              textarea.form-control(type='text' name='line6'  value=data.line6 required='' cols='30' rows='2' placeholder='краткая характеристика объекта, для испытания которого предназначено средства испытаний') #{data.line6}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label характеристика условий применения средства испытаний
+                            .col-sm-10
+                              textarea.form-control(id='' name='line8'  value=data.line8 required='' cols='30' rows='2' placeholder='синов воситаси ёрдамида синовдан ўтказиш мўлжалланган объектнинг қисқа тавсифи') #{data.line8}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование и обозначение документа на методику испытаний (при необходимости  
+                            .col-sm-10
+                              textarea.form-control(type='text' name='line10'  value=data.line10 required='' cols='30' rows='3' placeholder='наименование и обозначение документа на методику испытаний (при необходимости') #{data.line10}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Периодичность повторной метрологической аттестации 
+                            .col-sm-10
+                              input.form-control(name='line13'  value=data.line13 required='' placeholder='месяцев (лет)')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label М.П. Руководитель метрологической службы 
+                            .col-sm-10
+                              input.form-control(name='line14' required=''  value=data.line14 placeholder='М.П. Руководитель метрологической службы ')
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Дата выдачи
+                            .col-sm-8
+                              input.form-control(type='date' name='date3'  value=data.date3)
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+
+                  if type == 5 && lang == "uz"
+                    form(action='/certifcate/update/'+id, method='POST').forms-sample
+                      input(type='text' name='doc' value='5' hidden='')
+                      input.lang_in(type='text' name='lang' value='uz' hidden='')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Hujat idisi
+                            .col-sm-10
+                              input.form-control(type='text'  name='ids' placeholder='hujjat idsi (kiritish ixtiyor)')
+
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси номи
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_name placeholder='Ўлчаш воситаси номи' name='measuring_instrument_name')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси тури
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_type placeholder='Ўлчаш воситаси тури' name='measuring_instrument_type')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси сони
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_count  placeholder='Ўлчаш воситаси сони' name='measuring_instrument_count')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситасининг Идинфтикатор рақами
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_id placeholder='Ўлчаш воситасининг Идинфтикатор рақами' name='measuring_instrument_id')
+
+
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ecy;&tcy;&acy;&lcy;&ocy;&ncy;&lcy;&acy;&rcy;&ncy;&icy;&ncy;&gcy; &bcy;&iecy;&lcy;&gcy;&icy;&lcy;&acy;&ncy;&icy;&shcy;&icy; &vcy;&acy; &ncy;&ocy;&mcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line1, name='line1' required='' placeholder='эталонлар (намунавий ўлчаш воситалари)нинг белгиланиши ва номи, киёсланган санаси')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &kcy;&icy;&iocy;&scy;&lcy;&acy;&shcy; &bcy;&ucy;&jcy;&icy;&chcy;&acy; &khcy;&ucy;&zhcy;&zhcy;&acy;&tcy;&ncy;&icy;&ncy;&gcy; &bcy;&iecy;&lcy;&gcy;&icy;&lcy;&acy;&ncy;&icy;&shcy;&icy; &vcy;&acy; &ncy;&ocy;&mcy;&lcy;&acy;&ncy;&icy;&shcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line2, name='line2' required='' placeholder='киёслаш буйича хужжатнинг белгиланиши ва номланиши')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy; &kcy;&icy;&iocy;&scy;&lcy;&acy;&ncy;&gcy;&acy;&ncy; &mcy;&iecy;&tcy;&rcy;&ocy;&lcy;&ocy;&gcy;&icy;&yacy; &khcy;&icy;&zcy;&mcy;&acy;&tcy;&icy;&ncy;&icy;&ncy;&gcy; &ncy;&ocy;&mcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line3, name='line3' required='' placeholder='ўлчаш воситаларини киёсланган метрология хизматининг номи')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy;&ncy;&gcy; &ecy;&gcy;&acy;&scy;&icy; - &yucy;&rcy;&icy;&dcy;&icy;&kcy; &shcy;&acy;&khcy;&scy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line4, name='line4' required='' placeholder='ўлчаш воситаларининг эгаси - юридик шахс')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy; &tcy;&acy;&jcy;&iocy;&rcy;&lcy;&ocy;&vcy;&chcy;&icy; - &yucy;&rcy;&icy;&dcy;&icy;&kcy; &shcy;&acy;&khcy;&scy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line5, name='line5' required='' placeholder='ўлчаш воситаларини тайёрловчи - юридик шахс')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy; &tcy;&acy;&jcy;&iocy;&rcy;&lcy;&ocy;&vcy;&chcy;&icy; - &icy;&mcy;&pcy;&ocy;&rcy;&tcy; &kcy;&icy;&lcy;&ucy;&vcy;&chcy;&icy; &mcy;&acy;&mcy;&lcy;&acy;&kcy;&acy;&tcy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line6, name='line6' required='' placeholder='ўлчаш воситаларини тайёрловчи - импорт килувчи мамлакат')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy; &pcy;&acy;&rcy;&acy;&mcy;&iecy;&tcy;&rcy;&lcy;&acy;&rcy;&ncy;&icy;&ncy;&gcy; &ncy;&ocy;&mcy;&icy;, &ubrcy;&lcy;&chcy;&acy;&shcy;&lcy;&acy;&rcy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line7, name='line7' required='' placeholder='ўлчаш воситаларини параметрларнинг номи, ўлчашлар')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &khcy;&acy;&tcy;&ocy;&lcy;&icy;&kcy; &chcy;&iecy;&gcy;&acy;&rcy;&acy;&lcy;&acy;&rcy;&icy;, &acy;&ncy;&icy;&kcy;&lcy;&icy;&kcy; &kcy;&lcy;&acy;&scy;&scy;&icy;
+                            .col-sm-10
+                              input.form-control(name='line8',value=data.line8,required='' placeholder='хатолик чегаралари, аниклик класси')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&lcy;&acy;&rcy;&icy;&ncy;&icy;&ncy;&gcy; &ncy;&ocy;&mcy;&lcy;&acy;&ncy;&icy;&shcy;&icy; &vcy;&acy; &bcy;&iecy;&lcy;&gcy;&icy;&lcy;&acy;&ncy;&icy;&shcy;&icy;, &zcy;&acy;&vcy;&ocy;&dcy; &rcy;&acy;&kcy;&acy;&mcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line9, name='line9' required='' placeholder='ўлчаш воситаларининг номланиши ва белгиланиши, завод раками')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &tcy;&acy;&lcy;&acy;&bcy;&lcy;&acy;&rcy;&icy;&gcy;&acy; &mcy;&ocy;&scy;&lcy;&icy;&gcy;&icy;&ncy;&icy;
+                            .col-sm-10
+                              textarea.form-control(id='' name='line10' required='' cols='30' rows='3' placeholder='ўлчаш воситаларига куйиладиган талабларини регламентловчи норматив хужжат белгиланиши ва номи') #{data.line10}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &ubrcy;&lcy;&chcy;&acy;&shcy;  &vcy;&ocy;&scy;&icy;&tcy;&acy;&scy;&icy; &tcy;&ucy;&rcy;&icy;&ncy;&icy;&ncy;&gcy; &tcy;&acy;&hardcy;&rcy;&icy;&fcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line11, name='line11' required='' placeholder='ўлчаш  воситаси турининг таърифи')
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label &#x49A;&icy;&iocy;&scy;&lcy;&acy;&shcy;  &scy;&acy;&ncy;&acy;&scy;&icy; 
+                            .col-sm-8
+                              input.form-control(type='date',value=data.date1,required='' name='date1')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &Mcy;.&Ubrcy;.&Mcy;&iecy;&tcy;&rcy;&ocy;&lcy;&ocy;&gcy;&icy;&yacy; &khcy;&icy;&zcy;&mcy;&acy;&tcy;&icy;&ncy;&icy;&ncy;&gcy;  &rcy;&acy;&#x4B3;&bcy;&acy;&rcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line12,required='' name='line12' placeholder='М.Ў.Метрология хизматининг  раҳбари')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &#x49A;&icy;&iecy;&scy;&lcy;&ocy;&vcy;&chcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text' required='',value=data.line13, name='line13' placeholder='Қиесловчи')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+                  if type == 5 && lang == "ru"
+                    form(action='/certifcate/update/'+id method='POST').forms-sample
+                      input(type='text' name='doc' value='5' hidden='')
+                      input.lang_in(type='text' name='lang' value='ru' hidden='')
+                      .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label Держатель документов
+                          .col-sm-10
+                            input.form-control(type='text'  name='ids' placeholder='идентификатор документа (необязательно)')
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование и обозначение средства измерений, заводской номер
+                            .col-sm-10
+                              textarea.form-control(type='text' name='line1'  value=data.line1 cols="30" rows="2" required='' placeholder='наименование и обозначение средства измерений, заводской номер') #{data.line1}
+                      .row
+                        .col-md-12  
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование параметра, пределы измерений, погрешности, класс точности средства измерений
+                            .col-sm-10
+                              textarea.form-control(type='text' name='line3'  value=data.line3  cols="30" rows="2" required='' placeholder='наименование параметра, пределы измерений, погрешности, класс точности средства измерений') #{data.line3}
+                      .row
+                        .col-md-12 
+                          .form-group.row
+                            label.col-sm-2.col-form-label изготовитель средства измерений
+                            .col-sm-10
+                              input.form-control(type='text' name='line5'  value=data.line5 required='' placeholder='изготовитель и страна – импортер средства измерений')
+                      .row
+                        .col-md-12 
+                          .form-group.row
+                            label.col-sm-2.col-form-label изготовитель и страна – импортер средства измерений
+                            .col-sm-10
+                              input.form-control(type='text' name='line6'  value=data.line6 required='' placeholder='изготовитель и страна – импортер средства измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label владелец средства измерений
+                            .col-sm-10
+                              input.form-control(type='text' name='line7'  value=data.line7 required='' placeholder='владелец средства измерений')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label обозначение и наименование документа, регламентирующего методы поверки
+                            .col-sm-10
+                              input.form-control(type='text' name='line8'  value=data.line8 required='' placeholder='обозначение и наименование документа, регламентирующего методы поверки')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label обозначение и наименование эталонов, (образцовых средства измерений), дата поверки
+                            .col-sm-10
+                              input.form-control(type='text' name='line9'  value=data.line9 required='' placeholder='обозначение и наименование эталонов, (образцовых средства измерений), дата поверки')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label обозначение и наименование нормативного документа
+                            .col-sm-10
+                              input.form-control(name='line10'  value=data.line10 required='' placeholder='хатолик чегаралари, аниклик класси')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label регламентирующего требования к средству измерений, описание типа средств измерений
+                            .col-sm-10
+                              input.form-control(type='text' name='line11'  value=data.line11 required='' placeholder='регламентирующего требования к средству измерений, описание типа средств измерений')
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Дата поверки 
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='date1'  value=data.date1)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label М.П. Руководитель метрологической службы
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line12'  value=data.line12 placeholder='М.П. Руководитель метрологической службы')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Поверитель
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line13'  value=data.line13 placeholder='Поверитель')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+
+                  if type == 6 && lang == "uz"
+                    form(action='/certifcate/update/'+id, method='POST').forms-sample
+                      input(type='text' name='doc' value='6' hidden='')
+                      input.lang_in(type='text' name='lang' value='uz' hidden='')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Hujat idisi
+                            .col-sm-10
+                              input.form-control(type='text'  name='ids' placeholder='hujjat idsi (kiritish ixtiyor)')
+
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси номи
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_name placeholder='Ўлчаш воситаси номи' name='measuring_instrument_name')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси тури
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_type placeholder='Ўлчаш воситаси тури' name='measuring_instrument_type')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси сони
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_count  placeholder='Ўлчаш воситаси сони' name='measuring_instrument_count')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситасининг Идинфтикатор рақами
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_id placeholder='Ўлчаш воситасининг Идинфтикатор рақами' name='measuring_instrument_id')
+
+
+
+
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label &Bcy;&iecy;&rcy;&icy;&lcy;&gcy;&acy;&ncy; &scy;&acy;&ncy;&acy;
+                            .col-sm-8
+                              input.form-control(type='date',value=data.date1,required='' name='date1')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &acy;&rcy;&icy;&zcy;&acy; &bcy;&iecy;&rcy;&ucy;&vcy;&chcy;&icy;&ncy;&icy;&ncy;&gcy; &ncy;&ocy;&mcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line1,required='' name='line1' placeholder='ариза берувчининг номи')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &scy;&icy;&ncy;&ocy;&vcy; &vcy;&ocy;&scy;&icy;&tcy;&acy;&scy;&icy;&ncy;&icy;&ncy;&gcy; &ncy;&ocy;&mcy;&lcy;&acy;&ncy;&icy;&shcy;&icy; &vcy;&acy; &bcy;&iecy;&lcy;&gcy;&icy;&lcy;&acy;&ncy;&icy;&shcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line2,required='' name='line2' placeholder='синов воситасининг номланиши ва белгиланиши')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &zcy;&acy;&vcy;&ocy;&dcy; &iocy;&kcy;&icy; &icy;&ncy;&vcy;&iecy;&ncy;&tcy;&acy;&rcy; &rcy;&acy;&kcy;&acy;&mcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line3,required='' name='line3' placeholder='завод ёки инвентар раками')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &dcy;&acy;&lcy;&ocy;&lcy;&acy;&tcy;&ncy;&ocy;&mcy;&acy; &scy;&acy;&ncy;&acy;&scy;&icy;
+                            .col-sm-4
+                              input.form-control(type='date',value=data.date2,required='' name='date2')
+                            label.col-sm-1.col-form-label &scy;&ocy;&ncy;
+                            .col-sm-5
+                              input.form-control(type='text',value=data.son,required='' name='son' placeholder='сон')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &scy;&icy;&ncy;&acy;&shcy; &ucy;&scy;&ucy;&lcy;&icy; &khcy;&ucy;&zhcy;&zhcy;&acy;&tcy;&icy; &ncy;&ocy;&mcy;&lcy;&acy;&ncy;&icy;&shcy;&icy; &vcy;&acy; &bcy;&iecy;&lcy;&gcy;&icy;&lcy;&acy;&ncy;&icy;&shcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line4,required='' name='line4' placeholder='синаш усули хужжати номланиши ва белгиланиши (зарур бўлганда)')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &mcy;&acy;&#x4B3;&scy;&ucy;&lcy;&ocy;&tcy; &ncy;&ocy;&mcy;&lcy;&acy;&ncy;&icy;&shcy;&icy;
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line5,required='' name='line5' placeholder='маҳсулот номланиши')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &Mcy;&iecy;&tcy;&rcy;&ocy;&lcy;&ocy;&gcy;&icy;&kcy;  &acy;&tcy;&tcy;&iecy;&scy;&tcy;&acy;&tscy;&icy;&yacy; &ubrcy;&tcy;&kcy;&acy;&zcy;&gcy;&acy;&ncy; &bcy;&ubrcy;&lcy;&icy;&ncy;&mcy;&acy; &rcy;&acy;&#x4B3;&bcy;&acy;&rcy;&icy;
+                            .col-sm-10
+                              input.form-control(name='line6',value=data.line6,required='' placeholder='Метрологик  аттестация ўтказган бўлинма раҳбари')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label &Mcy;.&Ubrcy;. &Mcy;&iecy;&tcy;&rcy;&ocy;&lcy;&ocy;&gcy;&icy;&kcy;  &khcy;&icy;&zcy;&mcy;&acy;&tcy;&icy;&ncy;&icy;&ncy;&gcy; &mcy;&ucy;&tcy;&acy;&khcy;&acy;&scy;&scy;&icy;&scy;&icy;
+                            .col-sm-10
+                              input.form-control(name='line7',value=data.line7,required='' placeholder='М.Ў. Метрологик  хизматининг мутахассиси')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+                  if type == 6 && lang == "ru"
+                    form(action='/certifcate/update/'+id method='POST').forms-sample
+                      input(type='text' name='doc' value='6' hidden='')
+                      input.lang_in(type='text' name='lang' value='ru' hidden='')
+                      .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label Держатель документов
+                          .col-sm-10
+                            input.form-control(type='text'  name='ids' placeholder='идентификатор документа (необязательно)')
+
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Дата выдачи 
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='date1'  value=data.date1)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование и обозначение средства испытаний
+                            .col-sm-10
+                              textarea.form-control(type='text' required='' cols="30" rows="2" name='line1'  value=data.line1 placeholder='наименование и обозначение средства испытаний') #{data.line1}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label заводской или инвентарный номер
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line3'  value=data.line3 placeholder='заводской или инвентарный номер')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование заявителя
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line4'  value=data.line4 placeholder='наименование заявителя')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label дата совершения акта
+                            .col-sm-4
+                              input.form-control(type='date' required='' name='date2'  value=data.date2)
+                            label.col-sm-1.col-form-label №
+                            .col-sm-5
+                              input.form-control(type='text' required='' name='son'  value=data.son placeholder='№')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование продукции
+                            .col-sm-10
+                              textarea.form-control(type='text' required='' cols="30" rows="2" name='line5'  value=data.line5 placeholder='наименование продукции') #{data.line5}
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label наименование и обозначение документа на методику испытаний (при необходимости)
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line7'  value=data.line7 placeholder='наименование и обозначение документа на методику испытаний (при необходимости)')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label М.П. Руководитель метрологической службы 
+                            .col-sm-10
+                              input.form-control(name='line8' required=''  value=data.line8 placeholder='М.П. Руководитель метрологической службы')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Специалист  метрологической службы
+                            .col-sm-10
+                              input.form-control(name='line9'  value=data.line9 required='' placeholder='Специалист  метрологической службы')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+
+                  if type == 7 && lang == "uz"
+                    form(action='/certifcate/update/'+id, method='POST').forms-sample
+                      input(type='text' name='doc' value='7' hidden='')
+                      input.lang_in(type='text' name='lang' value='uz' hidden='')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Hujat idisi
+                            .col-sm-10
+                              input.form-control(type='text'  name='ids' placeholder='hujjat idsi (kiritish ixtiyor)')
+
+
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси номи
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_name placeholder='Ўлчаш воситаси номи' name='measuring_instrument_name')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси тури
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_type placeholder='Ўлчаш воситаси тури' name='measuring_instrument_type')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситаси сони
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_count  placeholder='Ўлчаш воситаси сони' name='measuring_instrument_count')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ўлчаш воситасининг Идинфтикатор рақами
+                            .col-sm-10
+                              input.form-control(type='text' value=data.measuring_instrument_id placeholder='Ўлчаш воситасининг Идинфтикатор рақами' name='measuring_instrument_id')
+
+
+
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label O&grave;lchash vositasi egasi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line1,required='' name='line1' placeholder='O`lchash vositasi egasi')
+                      table.table.table-bordered
+                        thead
+                          tr
+                            th.text-center(style='width: 10%;')
+                              | Ishlab 
+                              br
+                              |  chiqarish 
+                              br
+                              |  zavodi
+                            th.text-center(style='width: 10%;')
+                              | Zavod 
+                              br
+                              |  raqami
+                            th.text-center(style='width: 30%;') Inventarlar raqami
+                            th.text-center(style='width: 30%;') Turi
+                            th.text-center(style='width: 20%;')
+                              | Sinf yoki 
+                              br
+                              |  xatolik 
+                              br
+                              |  chegarasi
+                        tbody#table2
+                          tr
+                            td
+                              input.form-control(type='text',value=data.line2,required='' name='line2' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line2_1,required='' name='line2_1' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line2_2,required='' name='line2_2' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line2_3,required='' name='line2_3' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line2_4,required='' name='line2_4' placeholder='')
+                          tr
+                            td
+                              input.form-control(type='text',value=data.line3, name='line3' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line3_1, name='line3_1' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line3_2, name='line3_2' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line3_3, name='line3_3' placeholder='')
+                            td
+                              input.form-control(type='text',value=data.line3_4, name='line3_4' placeholder='')
+                      br
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Shablonning ko&grave;rsatmasi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line4,required='' name='line4' placeholder='Shablonning ko`rsatmasi')
+                      h6.text-center(style='padding-top: 3vh;') Qiyoslash natijalari
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Qiyoslash sanasi
+                            .col-sm-8
+                              input.form-control(type='date',value=data.line5,required='' name='line5')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Xulosa
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line5_1,required='' name='line5_1' placeholder='Xulosa')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Qiyoslovchi 
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line5_2,required='' name='line5_2' placeholder='Qiyoslovchi')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Tasdiqlash shtampi
+                            .col-sm-10
+                              input.form-control(type='text',value=data.line5_3,required='' name='line5_3' placeholder='Tasdiqlash shtampi')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+                  if type == 7 && lang == "ru"
+                    form(action='/certifcate/update/'+id method='POST').forms-sample
+                      input(type='text' name='doc' value='7' hidden='')
+                      input.lang_in(type='text' name='lang' value='ru' hidden='')
+                      .row
+                      .col-md-12
+                        .form-group.row
+                          label.col-sm-2.col-form-label Держатель документов
+                          .col-sm-10
+                            input.form-control(type='text'  name='ids' placeholder='идентификатор документа (необязательно)')
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Наименование шаблона
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='name'  value=data.name placeholder='Наименование шаблона')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Владелец средства измерении 
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line1'  value=data.line1 placeholder='Владелец средства измерении')
+                      table.table.table-bordered
+                        thead
+                          tr
+                            th.text-center(style='width: 10%;')
+                              |  Производитель 
+                            th.text-center(style='width: 10%;')
+                              | Заводской 
+                              br
+                              |  номер
+                            th.text-center(style='width: 30%;') Инвентарный номер
+                            th.text-center(style='width: 30%;') Тип
+                            th.text-center(style='width: 20%;')
+                              | Погрешность  и/или
+                              br
+                              |  класс точность 
+                        tbody#table2
+                          tr
+                            td
+                              input.form-control(type='text' required='' name='line2'  value=data.line2 placeholder='')
+                            td
+                              input.form-control(type='text' required='' name='line2_1' value=data.line2_1 placeholder='')
+                            td
+                              input.form-control(type='text' required='' name='line2_2' value=data.line2_2 placeholder='')
+                            td
+                              input.form-control(type='text' required='' name='line2_3' value=data.line2_3 placeholder='')
+                            td
+                              input.form-control(type='text' required='' name='line2_4' value=data.line2_4 placeholder='')
+                          tr
+                            td
+                              input.form-control(type='text' name='line3' value=data.line3 placeholder='')
+                            td
+                              input.form-control(type='text' name='line3_1' value=data.line3_1 placeholder='')
+                            td
+                              input.form-control(type='text' name='line3_2' value=data.line3_2 placeholder='')
+                            td
+                              input.form-control(type='text' name='line3_3' value=data.line3_3 placeholder='')
+                            td
+                              input.form-control(type='text' name='line3_4' value=data.line3_4 placeholder='')
+                      br
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Предназначение шаблона
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line4' value=data.line4 placeholder='Предназначение шаблона')
+                      h6.text-center(style='padding-top: 3vh;') Результат поверки
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Дата поверки
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='line5' value=data.line5)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Заключение
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line5_1' value=data.line5_1 placeholder='Заключение')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Ф.И.О. поверителя 
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line5_2' value=data.line5_2 placeholder='Ф.И.О. поверителя')
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Места клейма
+                            .col-sm-10
+                              input.form-control(type='text' required='' name='line5_3' value=data.line5_3 placeholder='Места клейма')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+
+
+          // content-wrapper ends
+          // partial:partials/_footer.html
+          footer.footer
+          script(src='../../asserts/js/table_view.js')
+          script(src='../../assets/vendors/js/vendor.bundle.base.js')
+          // endinject
+          // Plugin js for this page
+          script(src='../../assets/vendors/chart.js/Chart.min.js')
+          script(src='../../assets/vendors/progressbar.js/progressbar.min.js')
+          script(src='../../assets/vendors/jvectormap/jquery-jvectormap.min.js')
+          script(src='../../assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js')
+          script(src='../../assets/vendors/owl-carousel-2/owl.carousel.min.js')
+          // End plugin js for this page
+          // inject:js
+          script(src='../../assets/js/off-canvas.js')
+          script(src='../../assets/js/hoverable-collapse.js')
+          script(src='../../assets/js/misc.js')
+          script(src='../../assets/js/settings.js')
+          script(src='../../assets/js/todolist.js')
+          // endinject
+          // Custom js for this page
+          script(src='../../assets/js/dashboard.js')
+          // End custom js for this page

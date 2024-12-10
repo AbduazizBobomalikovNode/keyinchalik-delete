@@ -1,0 +1,486 @@
+doctype html
+html(lang='en')
+  head
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    title REAL  ELECTRONICS  MChJ
+    // plugins:css
+    link(rel='stylesheet' href=path+'../assets/vendors/mdi/css/materialdesignicons.min.css')
+    link(rel='stylesheet' href=path+'../assets/vendors/css/vendor.bundle.base.css')
+    // endinject
+    // Plugin css for this page
+    link(rel='stylesheet' href=path+'../assets/vendors/jvectormap/jquery-jvectormap.css')
+    link(rel='stylesheet' href=path+'../assets/vendors/flag-icon-css/css/flag-icon.min.css')
+    link(rel='stylesheet' href=path+'../assets/vendors/owl-carousel-2/owl.carousel.min.css')
+    link(rel='stylesheet' href=path+'../assets/vendors/owl-carousel-2/owl.theme.default.min.css')
+    // End plugin css for this page
+    // inject:css
+    // endinject
+    // Layout styles
+    link(rel='stylesheet' href=path+'../assets/css/style.css')
+    // End layout styles
+    link(rel='shortcut icon' href=path+'../assets/images/favicon.png')
+    script.
+      window.onload = function () {
+      let title = document.title + " ✅";
+      let index = 0;
+      setInterval(function () {
+      index = (index + 1) % (title.length + 1);
+      if (index == 0) index = 1;
+      if (title.substring(index, title.length)[0] == ' ') index++;
+      document.title = title.substring(index, title.length) + title.substring(0, index);
+      }, 400);
+      };
+
+
+  body
+    - var totalPages = Math.ceil(filter_count / 15);
+    dialog
+      p#dialog 
+    .container-scroller
+      // partial:partials/_sidebar.html
+      nav#sidebar.sidebar.sidebar-offcanvas
+        .sidebar-brand-wrapper.d-none.d-lg-flex.align-items-center.justify-content-center.fixed-top
+          a.sidebar-brand.brand-logo(href='/')
+            img(src=path+'../assets/images/logo.svg' alt='logo')
+          a.sidebar-brand.brand-logo-mini(href='/')
+            img(src=path+'../assets/images/logo-mini.svg' alt='logo')
+        ul.nav
+          li.nav-item.profile
+            .profile-desc
+              .profile-pic
+                .count-indicator
+                  img.img-xs.rounded-circle(src=path+'../assets/images/faces/images.jpg' alt='')
+                  span.count.bg-success
+                .profile-name
+                  h5.mb-0.font-weight-normal #{user.name}
+                  span #{user.role}
+          li.nav-item.nav-category
+            span.nav-link Bo&apos;limlar
+          li.nav-item.menu-items
+            a.nav-link(href='/')
+              span.menu-icon
+                i.mdi.mdi-speedometer
+              span.menu-title Asosiy panel
+          if bolimlar.task || bolimlar.role || bolimlar.user  
+            li.nav-item.menu-items
+              a.nav-link(data-toggle='collapse' href='#ui-basic' aria-expanded='false' aria-controls='ui-basic')
+                span.menu-icon
+                  i.mdi.mdi-laptop
+                span.menu-title Admin bo&apos;limi
+                i.menu-arrow
+              #ui-basic.collapse
+                ul.nav.flex-column.sub-menu
+                  if bolimlar.task
+                    li.nav-item
+                      a.nav-link(href='/task') Vazifalar
+                  if bolimlar.role
+                    li.nav-item
+                      a.nav-link(href='/role') Rollar
+                  if bolimlar.user
+                    li.nav-item
+                      a.nav-link(href='/user') Foydalanuvchilar
+          if bolimlar.certifcate 
+            li.nav-item.menu-items
+              a.nav-link(href='/certifcate')
+                span.menu-icon
+                  i.mdi.mdi-table-large
+                span.menu-title Sertiftikatlar
+      // partial
+      .container-fluid.page-body-wrapper
+        // partial:partials/_navbar.html
+        nav.navbar.p-0.fixed-top.d-flex.flex-row
+          .navbar-brand-wrapper.d-flex.d-lg-none.align-items-center.justify-content-center
+            a.navbar-brand.brand-logo-mini(href='/')
+              img(src=path+'../assets/images/logo-mini.svg' alt='logo')
+          .navbar-menu-wrapper.flex-grow.d-flex.align-items-stretch
+            button.navbar-toggler.navbar-toggler.align-self-center(type='button' data-toggle='minimize')
+              span.mdi.mdi-menu
+            ul.navbar-nav.navbar-nav-right
+              li.nav-item.dropdown
+                a#profileDropdown.nav-link(href='#' data-toggle='dropdown')
+                  .navbar-profile
+                    img.img-xs.rounded-circle(src=path+'../assets/images/faces/images.jpg' alt='')
+                    p.mb-0.d-none.d-sm-block.navbar-profile-name #{user.name}
+                    i.mdi.mdi-menu-down.d-none.d-sm-block
+                .dropdown-menu.dropdown-menu-right.navbar-dropdown.preview-list(aria-labelledby='profileDropdown')
+                  h6.p-3.mb-0 Profil
+                  .dropdown-divider
+                  a.dropdown-item.preview-item
+                    .preview-thumbnail
+                      .preview-icon.bg-dark.rounded-circle
+                        i.mdi.mdi-settings.text-success
+                    .preview-item-content
+                      p.preview-subject.mb-1 Sozlamalar
+                  .dropdown-divider
+                  a(href="/signout").dropdown-item.preview-item
+                    .preview-thumbnail
+                      .preview-icon.bg-dark.rounded-circle
+                        i.mdi.mdi-logout.text-danger
+                    .preview-item-content
+                      p.preview-subject.mb-1 Hisobdan chiqish
+
+            button.navbar-toggler.navbar-toggler-right.d-lg-none.align-self-center(type='button' data-toggle='offcanvas')
+              span.mdi.mdi-format-line-spacing
+        // partial
+        .main-panel#fokus_
+          .content-wrapper
+            .row
+              .col-xl-3.col-sm-6.grid-margin.stretch-card
+                .card
+                  .card-body
+                    .row
+                      .col-12
+                        .d-flex.align-items-center.align-self-start
+                          h3(style='width: 100%; text-align: center; font-size: xx-large;')
+                            | #{count} 
+                            mark(style='background:none;color: greenyellow;')  ta
+                    h6.text-muted.font-weight-normal.text-center
+                      b#filter_count #{filter_count} 
+                      |  ta
+                      br
+                      |  elementdan filtrlangan
+                    br
+                    br
+                    br
+                    .row
+                      .col-12
+                        .d-flex.align-items-center.align-self-start
+                          h3(style='width: 100%; text-align: center; font-size:  60px;')
+                            b#pageMark #{1} 
+                              b(style='font-size:  20px;') /#{totalPages}
+                            mark(style='background:none;color: greenyellow;')  
+                    h6.text-muted.font-weight-normal.text-center  
+                      b chi Sahifa
+              .col-xl-8.col-sm-12.grid-margin.stretch-card
+                .card
+                  .card-body
+                    .row
+                      .col-6
+                        .template-demo
+                          .form-group
+                            label(for='filter1') hujjat turini tanlang
+                            select#filter1.form-control.form-control-lg
+                              option Hammasi
+                              each val, index in doc_name
+                                option(value=index) #{val} 
+                      .col-6
+                        .form-group
+                          label(for='#filter2') hujjat tilini tanlang
+                          select#filter2.form-control.form-control-lg
+                            option Hammasi
+                            each val, index in lang
+                              option(value=index) #{val}
+                    .row
+                      .col-6
+                        .template-demo
+                          .form-group
+                            label(for='filter3') 
+                              .form-check.form-check-muted.m-0
+                                label.form-check-label
+                                  input#filter3_chek.form-check-input(type='checkbox')
+                                | yaratilgan sana 
+                            input#filter3.form-control(type='date') 
+                      if  isAdmin
+                        .col-6
+                          .form-group
+                            label(for='filter4') xodimni tanlang
+                            select#filter4.form-control.form-control-lg
+                              option Hammasi
+                              each val, index in employees
+                                option(value=index) #{employees[index]}
+                    .row
+                      .col-6
+                        .form-group
+                          label(for='filterstatus') hujjat holatini tanlang
+                          select#filterstatus.form-control.form-control-lg
+                            option(value=0) Hammasi
+                            option(value=1) Yangi yaratilgan hujjat
+                            option(value=2) Tekshiruvdagi hujjat
+                            option(value=3) Tasdiqlashga yuborilgan hujjat
+                            option(value=4) Tasdiqlangan  hujjat
+                    .row
+                      .col-12
+                        .template-demo
+                          .form-group
+                            label(for='filter4') Malumotlar qidirish 
+                            .row
+                              .col-9
+                                input.form-control(type='text' name='search' id="searchdata" required='' placeholder='id,MCHJ ......')
+                              .col-3
+                                button#getSearchResult.btn.btn-primary.mr-2 Natijani olish
+                            .row
+                              .col12(id="progressbar" style='width:100%; padding:10px 10% 0px; display:none;') 
+                                .progress
+                                  .progress-bar.bg-success(role='progressbar' id="prossees" style='width: 0%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100')
+
+                    .row
+                      .col-12
+                        .template-demo
+                          h6.text-muted.font-weight-normal.text-center
+                            b#searchCount  
+                            br
+                            i#prosesStatus   natija  topildi
+            .row
+              .col-12.grid-margin
+                .card
+                  .card-body
+                    .template-demo
+                      h4.card-title
+                        | Sertiftikatlar
+                        if bolimlar.add==true 
+                          a(href='/certifcate/add')
+                            button.btn.btn-success.btn-icon-text(type='button' style='margin-left: 5%;')
+                              i.mdi.mdi-plus-circle.btn-icon-append
+                              span   Qo&apos;shish
+                        if bolimlar.deletes==true && bolimlar.deletesAll==true 
+                          a#delete(href='#' title='/certifcate/all/delete/')
+                            button#btn-delete.btn.btn-danger.btn-icon-text.disabled(type='button')
+                              i.mdi.mdi-close
+                              span  O&apos;chirish
+                    .table-responsive
+                      table.table
+                        thead
+                          tr
+                            th
+                              .form-check.form-check-muted.m-0
+                                label.form-check-label
+                                  input(onclick='chekboxAll()')#all.form-check-input(type='checkbox')
+                            th  № 
+                            th  Hujjat raqami
+                            th  O'lchash 
+                              br 
+                              | vositasi nomi
+                            th  O'lchash 
+                              br
+                              | vositasi turi
+                            th  O'lchash 
+                              br 
+                              | vositasi soni
+                            th  O'lchash 
+                              br
+                              | vositasining 
+                              br 
+                              | Idinftikator raqami
+                            th  Hujjat turi
+                            th  Hujjat tili
+                            th  Hujjat 
+                              br 
+                              | muddati 
+                              br
+                              | tugashiga
+                            th  Amal qilish sanasi 
+                            th  Qiyoslash sanasi
+                            th  Tashkilot 
+                            th  Yaratilgan  vaqti 
+                            th  Xodim 
+                            th  ilova 
+                            th  protokol 
+                            th  Status 
+                            th  Ammallar 
+                        tbody
+                          - for (var x = 0; x < docs.length; x++)
+                            - var days = Math.ceil((new Date(docs[x].comply_with) - new Date()) / (1000 * 60 * 60 * 24));
+                            - let style = days < 31 ? (days < 8 ? "background-color: #ff00001a;" : "background-color: rgba(255, 166, 0, 0.092);") : ""
+                            tr(style=style)
+                              td
+                                .form-check.form-check-muted.m-0
+                                  label.form-check-label
+                                    input(id=docs[x].id,onclick='chekbox()').form-check-input(type='checkbox')
+                              td  #{docs[x].son}
+                              td  #{docs[x].id}
+                              td #{docs[x].measuring_instrument_name ? docs[x].measuring_instrument_name : "bo'sh"}
+                              td #{docs[x].measuring_instrument_type ? docs[x].measuring_instrument_type : "bo'sh"}
+                              td #{docs[x].measuring_instrument_count ? docs[x].measuring_instrument_count : "bo'sh"}
+                              td #{docs[x].measuring_instrument_id ? docs[x].measuring_instrument_id : "bo'sh"}
+                              td  #{doc_name[docs[x].type]}
+                              td  #{lang[docs[x].lang]} 
+                              td  #{days} kun 
+                              td  #{docs[x].comply_with} 
+                              td  #{docs[x].compare} 
+                              td  #{docs[x].organization?docs[x].organization.length>25?docs[x].organization.slice(0,25):docs[x].organization:""} 
+                              td  #{docs[x].date}
+                              td  #{employees[docs[x].employee]}
+                              td 
+                                if  docs[x].ilova_link 
+                                  a(href = docs[x].ilova_link)
+                                    button.btn.btn-outline-primary.btn-icon-text(type='button')
+                                      i.mdi.mdi-eye
+                                  a(href = "/certifcate/ilova/" + docs[x].id)
+                                    button.btn.btn-outline-light.btn-icon-text(type='button')
+                                      i.mdi.mdi-lead-pencil
+                                else 
+                                  a(href = "/certifcate/ilova/" + docs[x].id)
+                                    button.btn.btn-success.btn-icon-text(type='button')
+                                      i.mdi.mdi-ey
+                                      span briktirish
+                              td 
+                                if  docs[x].original_document_path_pdf
+                                  a(href = "/certifcate/protocol/view/" + docs[x].id)
+                                    button.btn.btn-outline-primary.btn-icon-text(type='button')
+                                      i.mdi.mdi-eye
+                                  a(href = "/certifcate/protocol/" + docs[x].id)
+                                    button.btn.btn-outline-light.btn-icon-text(type='button')
+                                      i.mdi.mdi-lead-pencil
+                                else 
+                                  a(href = "/certifcate/protocol/" + docs[x].id)
+                                    button.btn.btn-success.btn-icon-text(type='button')
+                                      i.mdi.mdi-ey
+                                      span briktirish
+
+                              if docs[x].status == 2 && bolimlar.activeDocumentUpdate
+                                td
+                                  a(href = "/certifcate/active/" + docs[x].id)
+                                    button.btn.btn-success.btn-icon-text(type='button')
+                                      i.mdi.mdi-check-circle
+                                      span Tasdiqlash
+                                  if docs[x].employee != user.id
+                                    a(href = "/certifcate/back/" + docs[x].id)
+                                      button.btn.btn-warning.btn-icon-text(type='button')
+                                        i.mdi.mdi-check-circle
+                                        span Qaytarish
+
+                              else if docs[x].status == 1 && bolimlar.activeDocumentCheck
+                                td
+                                  a(href = "/certifcate/checked/" + docs[x].id)
+                                    button.btn.btn-success.btn-icon-text(type='button')
+                                      i.mdi.mdi-check-circle
+                                      span Tasdiqlashga yuborilgan
+                                  a(href = "/certifcate/null/" + docs[x].id)
+                                    button.btn.btn-warning.btn-icon-text(type='button')
+                                      i.mdi.mdi-check-circle
+                                      span Qaytarish
+
+                              else if docs[x].status == 0 && bolimlar.activeDocumentCreate
+                                td
+                                  a(href = "/certifcate/check/" + docs[x].id)
+                                    button.btn.btn-success.btn-icon-text(type='button')
+                                      i.mdi.mdi-check-circle
+                                      span Tekshiruvga yuborish
+
+                              else if docs[x].status == 0
+                                td.text-light Hujjat yaratilgan
+
+                              else if docs[x].status == 1
+                                td.text-warning Tekshiruvga yuborilgan
+
+                              else if docs[x].status == 2
+                                td.text-info Tasdiqlashga yuborilgan
+
+                              else if docs[x].status == 3
+                                td.text-success Tasdiqlangan
+                              else 
+                                td Aniqlanmagan holatda #{docs[x].status}
+                              td
+                                .btn-group(role='group' aria-label='Basic example')
+                                  if bolimlar.view 
+                                    a(href = docs[x].link)
+                                      button.btn.btn-outline-primary(type='button')
+                                        i.mdi.mdi-eye
+                                  if bolimlar.update && docs[x].status && bolimlar.activeDocumentUpdate 
+                                    a(href='/certifcate/update/'+docs[x].id)
+                                      button.btn.btn-outline-light(type='button' title='tahrirlash')
+                                        i.mdi.mdi-lead-pencil
+                                  else if bolimlar.update && !docs[x].status
+                                    a(href='/certifcate/update/'+docs[x].id)
+                                      button.btn.btn-outline-light(type='button' title='tahrirlash')
+                                        i.mdi.mdi-lead-pencil
+                                  if bolimlar.deletes && docs[x].status &&  bolimlar.activeDocumentDelete
+                                    a(href='/certifcate/delete/'+docs[x].id)
+                                      button.btn.btn-outline-danger(type='button')
+                                        i.mdi.mdi-close
+                                  else if bolimlar.deletes && !docs[x].status
+                                    a(href='/certifcate/delete/'+docs[x].id)
+                                      button.btn.btn-outline-danger(type='button')
+                                        i.mdi.mdi-close
+                        tfoot
+                          tr
+                            td(colspan=8)
+                              .template-demo
+                                .btn-group(role='group' aria-label='Pagination Controls')
+
+                                  // Previous Button
+                                  if page - 1 > 0
+                                    button.btn.btn-outline-secondary(type='button' id='PreviousButton' data='currentPage='+(page - 1))
+                                      i.mdi.mdi-arrow-left-bold
+                                  else
+                                    button.btn.btn-outline-secondary.disabled(type='button')
+                                      i.mdi.mdi-arrow-left-bold
+
+
+
+                                  // Show first 6 pages if total pages more than 6
+                                  if totalPages > 6
+                                    - for (var x = 0; x < 6; x++)
+                                      if page - 1 == x
+                                        button.btn.btn-primary(type='button') #{x + 1}
+                                      else
+                                        button.ChooseButton.btn.btn-outline-secondary(type='button' data='currentPage='+(x + 1)) #{x + 1}
+                                    button.btn.btn-outline-secondary.disabled(type='button') ...
+
+                                    // Show middle pages based on the current page if greater than 5
+                                    if page - 1 > 5 && page < totalPages - 5
+                                      - for (var x = page - 2; x < page + 1; x++)
+                                        if page - 1 == x
+                                          button.btn.btn-primary(type='button') #{x + 1}
+                                        else
+                                          button.ChooseButton.btn.btn-outline-secondary(type='button' data='currentPage='+(x + 1)) #{x + 1}
+                                      button.btn.btn-outline-secondary.disabled(type='button') ...
+
+                                    // Show last 6 pages
+                                    - for (var x = totalPages - 6; x < totalPages; x++)
+                                      if page - 1 == x
+                                        button.btn.btn-primary(type='button') #{x + 1}
+                                      else
+                                        button.ChooseButton.btn.btn-outline-secondary(type='button' data='currentPage='+(x + 1)) #{x + 1}
+
+                                  else
+                                    // Show all pages if less than or equal to 6 pages
+                                    - for (var x = 0; x < totalPages; x++)
+                                      if page - 1 == x
+                                        button.btn.btn-primary(type='button') #{x + 1}
+                                      else
+                                        button.ChooseButton.btn.btn-outline-secondary(type='button' data='currentPage='+(x + 1)) #{x + 1}
+
+                                  // Next Button
+                                  if page + 1 <= totalPages
+                                    button.btn.btn-outline-secondary(type='button' id='NextButton' data='currentPage='+(page + 1))
+                                      i.mdi.mdi-arrow-right-bold
+                                  else
+                                    button.btn.btn-outline-secondary.disabled(type='button')
+                                      i.mdi.mdi-arrow-right-bold
+
+                            td(colspan=4) #{filter_count} ta element mavjut
+
+          // content-wrapper ends
+          // partial:partials/_footer.html
+          footer.footer
+          // partial
+          // main-panel ends
+          // page-body-wrapper ends
+          // container-scroller
+          // plugins:js
+          script(src=path+'../assets/vendors/js/vendor.bundle.base.js')
+          // endinject
+          // Plugin js for this page
+          script(src=path+'../assets/vendors/chart.js/Chart.min.js')
+          script(src=path+'../assets/vendors/progressbar.js/progressbar.min.js')
+          script(src=path+'../assets/vendors/jvectormap/jquery-jvectormap.min.js')
+          script(src=path+'../assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js')
+          script(src=path+'../assets/vendors/owl-carousel-2/owl.carousel.min.js')
+          // End plugin js for this page
+          // inject:js
+          script(src=path+'../assets/js/off-canvas.js')
+          script(src=path+'../assets/js/hoverable-collapse.js')
+          script(src=path+'../assets/js/misc.js')
+          script(src=path+'../assets/js/settings.js')
+          script(src=path+'../assets/js/todolist.js')
+          //- script(src=path+'../asserts/js/cheks.js')
+          script(src=path+'../asserts/js/cheks.js')
+          script.
+            elementCount = `!{filter_count}`;
+          // endinject
+          // Custom js for this page
+          script(src=path+'../assets/js/dashboard.js')
+          // End custom js for this page

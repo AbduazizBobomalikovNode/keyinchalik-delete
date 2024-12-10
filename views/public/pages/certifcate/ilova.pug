@@ -1,0 +1,575 @@
+doctype html
+html(lang='en')
+  head
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    title REAL  ELECTRONICS  MChJ
+    // plugins:css
+    link(rel='stylesheet' href='../../assets/vendors/mdi/css/materialdesignicons.min.css')
+    link(rel='stylesheet' href='../../assets/vendors/css/vendor.bundle.base.css')
+    // endinject
+    // Plugin css for this page
+    link(rel='stylesheet' href='../../assets/vendors/jvectormap/jquery-jvectormap.css')
+    link(rel='stylesheet' href='../../assets/vendors/flag-icon-css/css/flag-icon.min.css')
+    link(rel='stylesheet' href='../../assets/vendors/owl-carousel-2/owl.carousel.min.css')
+    link(rel='stylesheet' href='../../assets/vendors/owl-carousel-2/owl.theme.default.min.css')
+    // End plugin css for this page
+    // inject:css
+    // endinject
+    // Layout styles
+    link(rel='stylesheet' href='../../assets/css/style.css')
+    // End layout styles
+    link(rel='shortcut icon' href='../../assets/images/favicon.png')
+    script.
+      window.onload = function () {
+      let title = document.title + " ✅";
+      let index = 0;
+      setInterval(function () {
+      index = (index + 1) % (title.length + 1);
+      if (index == 0) index = 1;
+      if (title.substring(index, title.length)[0] == ' ') index++;
+      document.title = title.substring(index, title.length) + title.substring(0, index);
+      }, 400);
+      };
+  body
+    .container-scroller
+      // partial:partials/_sidebar.html
+      nav#sidebar.sidebar.sidebar-offcanvas
+        .sidebar-brand-wrapper.d-none.d-lg-flex.align-items-center.justify-content-center.fixed-top
+          a.sidebar-brand.brand-logo(href='/')
+            img(src='../../assets/images/logo.svg' alt='logo')
+          a.sidebar-brand.brand-logo-mini(href='/')
+            img(src='../../assets/images/logo-mini.svg' alt='logo')
+        ul.nav
+          li.nav-item.profile
+            .profile-desc
+              .profile-pic
+                .count-indicator
+                  img.img-xs.rounded-circle(src='../../assets/images/faces/images.jpg' alt='')
+                  span.count.bg-success
+                .profile-name
+                  h5.mb-0.font-weight-normal #{user.name}
+                  span #{user.role}
+          li.nav-item.nav-category
+            span.nav-link Navigation
+          li.nav-item.menu-items
+            a.nav-link(href='/')
+              span.menu-icon
+                i.mdi.mdi-speedometer
+              span.menu-title Asosiy panel
+          if bolimlar.task || bolimlar.role || bolimlar.user
+            li.nav-item.menu-items
+              a.nav-link(data-toggle='collapse' href='#ui-basic' aria-expanded='false' aria-controls='ui-basic')
+                span.menu-icon
+                  i.mdi.mdi-laptop
+                span.menu-title Admin bo&apos;limi
+                i.menu-arrow
+              #ui-basic.collapse
+                ul.nav.flex-column.sub-menu
+                  if  bolimlar.task
+                    li.nav-item
+                      a.nav-link(href='/task') Vazifalar
+                  if bolimlar.role
+                    li.nav-item
+                      a.nav-link(href='/role') Rollar
+                  if bolimlar.user
+                    li.nav-item
+                      a.nav-link(href='/user') Foydalanuvchilar
+          if bolimlar.certifcate
+            li.nav-item.menu-items
+              a.nav-link(href='/certifcate')
+                span.menu-icon
+                  i.mdi.mdi-table-large
+                span.menu-title Sertiftikatlar
+      // partial
+      .container-fluid.page-body-wrapper
+        // partial:partials/_navbar.html
+        nav.navbar.p-0.fixed-top.d-flex.flex-row
+          .navbar-brand-wrapper.d-flex.d-lg-none.align-items-center.justify-content-center
+            a.navbar-brand.brand-logo-mini(href='/')
+              img(src='../../assets/images/logo-mini.svg' alt='logo')
+          .navbar-menu-wrapper.flex-grow.d-flex.align-items-stretch
+            button.navbar-toggler.navbar-toggler.align-self-center(type='button' data-toggle='minimize')
+              span.mdi.mdi-menu
+            ul.navbar-nav.navbar-nav-right
+              li.nav-item.dropdown
+                a#profileDropdown.nav-link(href='#' data-toggle='dropdown')
+                  .navbar-profile
+                    img.img-xs.rounded-circle(src='../../assets/images/faces/images.jpg' alt='')
+                    p.mb-0.d-none.d-sm-block.navbar-profile-name #{user.name}
+                    i.mdi.mdi-menu-down.d-none.d-sm-block
+                .dropdown-menu.dropdown-menu-right.navbar-dropdown.preview-list(aria-labelledby='profileDropdown')
+                  h6.p-3.mb-0 Profil
+                  .dropdown-divider
+                  a.dropdown-item.preview-item
+                    .preview-thumbnail
+                      .preview-icon.bg-dark.rounded-circle
+                        i.mdi.mdi-settings.text-success
+                    .preview-item-content
+                      p.preview-subject.mb-1 Sozlamalar
+                  .dropdown-divider
+                  a(href="/signout").dropdown-item.preview-item
+                    .preview-thumbnail
+                      .preview-icon.bg-dark.rounded-circle
+                        i.mdi.mdi-logout.text-danger
+                    .preview-item-content
+                      p.preview-subject.mb-1 Hisobdan chiqish
+                  .dropdown-divider
+            button.navbar-toggler.navbar-toggler-right.d-lg-none.align-self-center(type='button' data-toggle='offcanvas')
+              span.mdi.mdi-format-line-spacing
+        // partial
+        .main-panel
+          .content-wrapper
+            .col-12.grid-margin.stretch-card
+              .card
+                .card-body
+                  .row
+                    .col-md-4
+                      h4.card-title Hujjat qo&apos;shish
+                      p#doc_name.card-description Yuqori aniqlikdagi o&lsquo;lchash vositasini qiyoslash guvohnomasi*
+                    
+                    
+
+
+
+                  form(action='/certifcate/ilova/add' method='POST').forms-sample
+                      input.lang_in(type='text' name='lang' value='uz' hidden='')
+                    
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label Hujat idisi : #{id}
+                            .col-sm-10
+                              input.form-control(type='text' hidden  name='id' value=id)
+
+
+
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label O'lchash vositasi nomi va turi
+                            .col-sm-10
+                              input.form-control(type='text' placeholder="O'lchash vositasi nomi" name='line1' value=line1?line1:"" required)
+                      .row
+                        .col-md-12
+                          .form-group.row
+                            label.col-sm-2.col-form-label O'lchash vositasi  egasi  
+                            .col-sm-10
+                              input.form-control(type='text' placeholder="O'lchash vositasi turi" name='line2' value=line2?line2:"" required)
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Amal qilish muddati
+                            .col-sm-8
+                              input.form-control(type='date' name='date1' value=date1 || "" required)
+
+
+                      .row
+                        .col-md-6
+                          .form-group.row
+                            label.col-sm-4.col-form-label Qiyoslash sanasi
+                            .col-sm-8
+                              input.form-control(type='date' required='' name='date2' value=date2 || "" )
+
+
+                      h6.text-center Jadval
+                      table.table.table-bordered
+                        thead
+                          tr
+                            th.text-center(style='width: 4%;') №
+                            th.text-center(style='width: 24%;')
+                              | O'lchash 
+                              br 
+                              | vositasi nomi
+                            th.text-center(style='width: 24%;') Zavod raqami
+                            th.text-center(style='width: 24%;') O`lcham chegarasi
+                            th.text-center(style='width: 24%;') Izox
+                        tbody#table2
+                          tr
+                            td
+                              input.d-none(type='text' name='ln1_n1' required='' value='1')
+                              |  1 
+                            td
+                              input.form-control(type='text' name='ln1_n2' value=ln1_n2?ln1_n2:""  required='' placeholder='')
+                            td
+                              input.form-control(type='text' name='ln1_n3' value=ln1_n3?ln1_n3:"" required='' placeholder='')
+                            td
+                              input.form-control(type='text' name='ln1_n4' value=ln1_n4?ln1_n4:"" required='' placeholder='')
+                            td
+                              input.form-control(type='text' name='ln1_n5' value=ln1_n5?ln1_n5:"" required='' placeholder='')
+                          - for (var x = 1; x < data.length; x++)
+                              tr
+                                td
+                                  input.d-none(type='text' name=data[x][0].key  value=data[x][0]?data[x][0].value:"" required='')
+                                  |  #{x+1} 
+                                td
+                                  input.form-control(type='text' name=data[x][1].key  value=data[x][1]?data[x][1].value:""  required='' placeholder='')
+                                td
+                                  input.form-control(type='text' name=data[x][2].key  value=data[x][2]?data[x][2].value:"" required='' placeholder='')
+                                td
+                                  input.form-control(type='text' name=data[x][3].key  value=data[x][3]?data[x][3].value:"" required='' placeholder='')
+                                td
+                                  input.form-control(type='text' name=data[x][4].key  value=data[x][4]?data[x][4].value:"" required='' placeholder='')
+                              
+                          tr
+                            td(colspan='4')
+                              button.btn.btn-outline-primary.btn-fw.text-center(type='button' style='width: 100%;' id='table-dynamik+') +
+                            td(colspan='1')
+                              button.btn.btn-outline-danger.btn-fw.text-center(type='button' style='width: 100%;' id='table-dynamik-') -
+                      
+                      //- .row
+                      //-   .col-md-12
+                      //-     .form-group.row
+                      //-       label.col-sm-2.col-form-label Qiyoslash o&grave;tkazgan tashkilot 
+                      //-       .col-sm-10
+                      //-         input.form-control(type='text' name='line24' required='' placeholder='Qiyoslash o`tkazgan tashkilot')
+                      
+                      
+                      //- .row
+                      //-   .col-md-12
+                      //-     .form-group.row
+                      //-       label.col-sm-2.col-form-label Qiyoslash natijasi
+                      //-       .col-sm-10
+                      //-         input.form-control(type='text' required='' name='line27' placeholder='Qiyoslash natijasi')
+                      //- .row
+                      //-   .col-md-12
+                      //-     .form-group.row
+                      //-       label.col-sm-2.col-form-label Bo&grave;lim boshlig&grave;i 
+                      //-       .col-sm-10
+                      //-         input.form-control(type='text' required='' name='line28' placeholder='Bo`lim boshlig`i')
+                      //- .row
+                      //- .col-md-12
+                      //-   .form-group.row
+                      //-     label.col-sm-2.col-form-label Qiyoslovchi
+                      //-     .col-sm-10
+                      //-       input.form-control(type='text' name='line29' required='' placeholder='Qiyoslovchi')
+                      button.btn.btn-primary.mr-2(type='submit') Yaratish
+                      a(href="/certifcate") 
+                        button.btn.btn-dark(type='button') Bekor qilish
+                  //- form(action='/certifcate/add' method='POST').forms-sample
+                  //-   input(type='text' name='doc' value='3' hidden='')
+                  //-   input.lang_in(type='text' name='lang' value='ru' hidden='')
+                  //-   input(type='text' name='original_document_path' value='' hidden='')
+                  //-   .row(style="color:rgba(255, 40, 40, 0.756);")
+                  //-     .col-md-12
+                  //-       .form-group.row
+                  //-         label.col-sm-2.col-form-label Сначала проверьте протокол!
+                  //-         .col-sm-8
+                  //-           input.form-control(style="color:rgba(255, 40, 40, 0.756);" doc='6' required   type='file' id ='fileInput'  name='file' accept=".doc,.docx,.xls,.xlsx" placeholder='введите протокол документа')
+                  //-         .col-sm-2
+                  //-           button.btn.btn-primary(type="button",metka='fileInput6') Tekshirish 
+                  //-   .coClass(hidden="" mark='6')
+
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Держатель документов
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text'  name='ids' placeholder='идентификатор документа (необязательно)')
+
+
+
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Название измерительного прибора
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' placeholder='Название измерительного прибора' name='measuring_instrument_name')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Тип измерительного прибора
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' placeholder='Тип измерительного прибора' name='measuring_instrument_type')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Количество измерительных приборов
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' placeholder='Количество измерительных приборов' name='measuring_instrument_count')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Идентификационный номер измерительного прибора
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' placeholder='Идентификационный номер измерительного прибора' name='measuring_instrument_id')
+
+
+
+
+
+
+                  //-     h6.text-center Информация о средстве измерений 
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Владелец средства измерений
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line1' required='' placeholder='Владелец средства измерений')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label ИНН:
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line2' required='' placeholder='ИНН:')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Наименование средства измерений
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line3' required='' placeholder='Наименование средства измерений')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Тип средства измерении
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line4' required='' placeholder='Тип средства измерении')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Производитель
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line5' required='' placeholder='Производитель')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Страна изготовитель
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line6' required='' placeholder='Страна изготовитель')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Заводской номер
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line7' required='' placeholder='Заводской номер')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Номер шасси с цистерной
+                  //-           .col-sm-10
+                  //-             input.form-control(name='line8' required='' placeholder='Номер шасси с цистерной')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Государственный номер автомобиля
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line9' required='' placeholder='Государственный номер автомобиля')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Марка автомобиля 
+                  //-           .col-sm-10
+                  //-             input.form-control(name='line10' required='' placeholder='Марка автомобиля ')
+                  //-     h6.text-center Метрологические характеристики средства измерения
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Обозначение НД 
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line11' required='' placeholder='Обозначение НД')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Регламентирующее обозначение НД
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line12' required='' placeholder='Регламентирующее обозначение НД')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Метод измерения объема 
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line13' required='' placeholder='Метод измерения объема')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Вид цистерны
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line14' required='' placeholder='Вид цистерны')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Допустимая основная и относительная погрешность  
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line15' required='' placeholder='Ruxsat etilgan o`lchash xatoligi')
+                  //-     h6.text-center Измеренный объем цистерны, dm³
+                  //-     table.table.table-bordered
+                  //-       thead
+                  //-         tr
+                  //-           th.text-center(style='width: 10%;')
+                  //-             | От кабины  
+                  //-             br
+                  //-             | водителя 
+                  //-           th.text-center(style='width: 30%;') Прописью
+                  //-           th.text-center(style='width: 30%;') Цифрами (dm³)
+                  //-           th.text-center(style='width: 30%;')
+                  //-             | Высота уровня 
+                  //-             br
+                  //-             | (планка)(cm)
+                  //-       tbody#table3
+                  //-         tr
+                  //-           td
+                  //-             input.d-none(type='text' name='line16_name' required='' value='1 я секция')
+                  //-             |  1 я секция
+                  //-           td
+                  //-             input.form-control(type='text' name='line16' required='' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line16_1' required='' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line16_2' required='' placeholder='')
+                  //-         tr(style='display: none;')
+                  //-           td
+                  //-             input.d-none(type='text' name='line17_name' value='2 я секция')
+                  //-             |  2 я секция
+                  //-           td
+                  //-             input.form-control(type='text' name='line17' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line17_1' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line17_2' placeholder='')
+                  //-         tr(style='display: none;')
+                  //-           td
+                  //-             input.d-none(type='text' name='line18_name' value='3 я секция')
+                  //-             |  3 я секция
+                  //-           td
+                  //-             input.form-control(type='text' name='line18' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line18_1' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line18_2' placeholder='')
+                  //-         tr(style='display: none;')
+                  //-           td
+                  //-             input.d-none(type='text' name='line19_name' value='4 я секция')
+                  //-             |  4 я секция
+                  //-           td
+                  //-             input.form-control(type='text' name='line19' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line19_1' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line19_2' placeholder='')
+                  //-         tr(style='display: none;')
+                  //-           td
+                  //-             input.d-none(type='text' name='line20_name' value='5 я секция')
+                  //-             |  5 я секция
+                  //-           td
+                  //-             input.form-control(type='text' name='line20' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line20_1' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line20_2' placeholder='')
+                  //-         tr(style='display: none;')
+                  //-           td
+                  //-             input.d-none(type='text' name='line21_name' value='6 я секция')
+                  //-             |  6 я секция
+                  //-           td
+                  //-             input.form-control(type='text' name='line21' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line21_1' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line21_2' placeholder='')
+                  //-         tr(style='display: none;')
+                  //-           td
+                  //-             input.d-none(type='text' name='line22_name' value='7 я секция')
+                  //-             |  7 я секция
+                  //-           td
+                  //-             input.form-control(type='text' name='line22' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line22_1' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line22_2' placeholder='')
+                  //-         tr(style='display: none;')
+                  //-           td
+                  //-             input.d-none(type='text' name='line23_name' value='8 я секция')
+                  //-             |  8 я секция
+                  //-           td
+                  //-             input.form-control(type='text' name='line23' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line23_1' placeholder='')
+                  //-           td
+                  //-             input.form-control(type='text' name='line23_2' placeholder='')
+                  //-         tr
+                  //-           td
+                  //-             |  Общая вместимость цистерны 
+                  //-           td
+                  //-             input.form-control(type='text' name='jami' placeholder='jami')
+                  //-           td
+                  //-             input.form-control(type='text' name='jami_1' placeholder='jami')
+                  //-           td
+                  //-             input.form-control(type='text' name='jami_2' placeholder='jami')
+                  //-         tr
+                  //-           td(colspan='3')
+                  //-             button.btn.btn-outline-primary.btn-fw.text-center(type='button' style='width: 100%;' id='table-dynamik1+') +
+                  //-           td(colspan='1')
+                  //-             button.btn.btn-outline-danger.btn-fw.tamext-center(type='button' style='width: 100%;' id='table-dynamik1-') -
+                  //-     h6.text-center(style='padding-top: 3vh;') ЗАКЛЮЧЕНИЕ
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Наименование метрологической службы, проводившей поверку средств измерений 
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' name='line24' required='' placeholder='Наименование метрологической службы, проводившей поверку средств измерений')
+                  //-     .row
+                  //-       .col-md-6
+                  //-         .form-group.row
+                  //-           label.col-sm-4.col-form-label Дата поверки
+                  //-           .col-sm-8
+                  //-             input.form-control(type='date' required='' name='line25')
+                  //-     .row
+                  //-       .col-md-6
+                  //-         .form-group.row
+                  //-           label.col-sm-4.col-form-label Срок действия до
+                  //-           .col-sm-8
+                  //-             input.form-control(type='date' required='' name='line26')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Результат поверки
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' required='' name='line27' placeholder='Результат поверки')
+                  //-     .row
+                  //-       .col-md-12
+                  //-         .form-group.row
+                  //-           label.col-sm-2.col-form-label Начальник отдела
+                  //-           .col-sm-10
+                  //-             input.form-control(type='text' required='' name='line28' placeholder='Начальник отдела')
+                  //-     .row
+                  //-     .col-md-12
+                  //-       .form-group.row
+                  //-         label.col-sm-2.col-form-label Поверитель
+                  //-         .col-sm-10
+                  //-           input.form-control(type='text' name='line29' required='' placeholder='Поверитель')
+                  //-   button.btn.btn-primary.mr-2(type='submit' disabled) Yaratish
+                  //-   a(href="/certifcate") 
+                  //-     button.btn.btn-dark(type='button') Bekor qilish
+
+                  
+          // content-wrapper ends
+          // partial:partials/_footer.html
+          footer.footer
+          // partial
+          // main-panel ends
+          // page-body-wrapper ends
+          // container-scroller
+          // plugins:js
+          //- script(src='../../asserts/js/add_cert.js')
+          script(src='../../asserts/js/table_view.js')
+          script(src='../../assets/vendors/js/vendor.bundle.base.js')
+          // endinject
+          // Plugin js for this page
+          script(src='../../assets/vendors/chart.js/Chart.min.js')
+          script(src='../../assets/vendors/progressbar.js/progressbar.min.js')
+          script(src='../../assets/vendors/jvectormap/jquery-jvectormap.min.js')
+          script(src='../../assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js')
+          script(src='../../assets/vendors/owl-carousel-2/owl.carousel.min.js')
+          // End plugin js for this page
+          // inject:js
+          script(src='../../assets/js/off-canvas.js')
+          script(src='../../assets/js/hoverable-collapse.js')
+          script(src='../../assets/js/misc.js')
+          script(src='../../assets/js/settings.js')
+          script(src='../../assets/js/todolist.js')
+          // endinject
+          // Custom js for this page
+          script(src='../../assets/js/dashboard.js')
+          // End custom js for this page

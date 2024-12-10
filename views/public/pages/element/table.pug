@@ -1,0 +1,194 @@
+thead
+    tr
+        th
+            .form-check.form-check-muted.m-0
+                label.form-check-label
+                    input(onclick='chekboxAll()')#all.form-check-input(type='checkbox')
+                    i.input-helper
+        th  № 
+        th  Hujjat raqami
+        th  Hujjat turi
+        th  Hujjat tili
+        th  Hujjat 
+            br 
+            | muddati 
+            br
+            | tugashiga
+        th  Amal qilish sanasi 
+        th  Qiyoslash sanasi
+        th  Tashkilot 
+        th  Yaratilgan  vaqti 
+        th  Xodim 
+        th  Status 
+        th  Ammallar 
+
+tbody
+    - for (var x = 0; x < data.length; x++)
+        - var days = Math.ceil((new Date(data[x].comply_with) - new Date()) / (1000 * 60 * 60 * 24));
+        - let style = days < 31 ? (days < 8 ? "background-color: #ff00001a;" : "background-color: rgba(255, 166, 0, 0.092);") : "" 
+        tr(style=style)
+            td
+                .form-check.form-check-muted.m-0
+                    label.form-check-label
+                        input.form-check-input(onclick='chekbox()' id=data[x].id  type='checkbox')
+                        i.input-helper
+            td  #{data[x].son}
+            td  #{data[x].id}
+            td  #{doc_name[data[x].type]}
+            td  #{lang[data[x].lang]}
+            td  #{days} kun  
+            td  #{data[x].comply_with} 
+            td  #{data[x].compare} 
+            td  #{data[x].organization?data[x].organization.length>25?data[x].organization.slice(0,25):data[x].organization:""} 
+            td  #{data[x].date}
+            td  #{employees[data[x].employee]}
+            td 
+                if  data[x].ilova_link 
+                    a(href = data[x].ilova_link)
+                        button.btn.btn-outline-primary.btn-icon-text(type='button')
+                            i.mdi.mdi-eye
+                    a(href = "/certifcate/ilova/" + data[x].id)
+                        button.btn.btn-outline-light.btn-icon-text(type='button')
+                            i.mdi.mdi-lead-pencil
+                else 
+                    a(href = "/certifcate/ilova/" + data[x].id)
+                        button.btn.btn-success.btn-icon-text(type='button')
+                            i.mdi.mdi-ey
+                            span briktirish
+            td 
+                if  data[x].original_document_path_pdf
+                    a(href = "/certifcate/protocol/view/" + data[x].id)
+                        button.btn.btn-outline-primary.btn-icon-text(type='button')
+                            i.mdi.mdi-eye
+                    a(href = "/certifcate/protocol/" + data[x].id)
+                        button.btn.btn-outline-light.btn-icon-text(type='button')
+                            i.mdi.mdi-lead-pencil
+                else 
+                    a(href = "/certifcate/protocol/" + data[x].id)
+                        button.btn.btn-success.btn-icon-text(type='button')
+                            i.mdi.mdi-ey
+                            span briktirish
+
+            if data[x].status == 2 && bolimlar.activeDocumentUpdate
+                td
+                    a(href = "/certifcate/active/" + data[x].id)
+                        button.btn.btn-success.btn-icon-text(type='button')
+                            i.mdi.mdi-check-circle
+                            span Tasdiqlash
+                    if data[x].employee != user.id
+                        a(href = "/certifcate/back/" + data[x].id)
+                            button.btn.btn-warning.btn-icon-text(type='button')
+                                i.mdi.mdi-check-circle
+                                span Qaytarish
+
+            else if data[x].status == 1 && bolimlar.activeDocumentCheck
+                td
+                    a(href = "/certifcate/checked/" + data[x].id)
+                        button.btn.btn-primary.btn-icon-text(type='button')
+                            i.mdi.mdi-check-circle
+                            span Tekshirish
+                    a(href = "/certifcate/null/" + data[x].id)
+                        button.btn.btn-warning.btn-icon-text(type='button')
+                            i.mdi.mdi-check-circle
+                            span Qaytarish
+
+            else if data[x].status == 0 && bolimlar.activeDocumentCreate
+                td
+                    a(href = "/certifcate/check/" + data[x].id)
+                        button.btn.btn-success.btn-icon-text(type='button')
+                            i.mdi.mdi-check-circle
+                            span Tekshiruvga yuborish
+
+            else if data[x].status == 0
+                td.text-light Hujjat yaratilgan
+
+            else if data[x].status == 1
+                td.text-warning Tekshiruvga yuborilgan
+
+            else if data[x].status == 2
+                td.text-info Tasdiqlashga yuborilgan
+
+            else if data[x].status == 3
+                td.text-success Tasdiqlangan
+            else 
+                td Aniqlanmagan holatda #{data[x].status}
+            td
+                .btn-group(role='group' aria-label='Basic example')
+                    if bolimlar.view 
+                        a(href = data[x].link)
+                            button.btn.btn-outline-primary(type='button')
+                                i.mdi.mdi-eye
+                    if bolimlar.update && data[x].status && bolimlar.activeDocumentUpdate 
+                        a(href='/certifcate/update/'+data[x].id)
+                            button.btn.btn-outline-light(type='button' title='tahrirlash')
+                                i.mdi.mdi-lead-pencil
+                    else if bolimlar.update && !data[x].status
+                        a(href='/certifcate/update/'+data[x].id)
+                            button.btn.btn-outline-light(type='button' title='tahrirlash')
+                                i.mdi.mdi-lead-pencil
+                    if bolimlar.deletes && data[x].status &&  bolimlar.activeDocumentDelete
+                        a(href='/certifcate/delete/'+data[x].id)
+                            button.btn.btn-outline-danger(type='button')
+                                i.mdi.mdi-close
+                    else if bolimlar.deletes && !data[x].status
+                        a(href='/certifcate/delete/'+data[x].id)
+                            button.btn.btn-outline-danger(type='button')
+                                i.mdi.mdi-close
+tfoot
+    tr
+        td(colspan=8)
+            .template-demo
+                .btn-group(role='group' aria-label='Pagination Controls')
+
+                    // Previous Button
+                    if currentPage - 1 > 0
+                        button#PreviousButton.btn.btn-outline-secondary(type='button' data='currentPage='+(currentPage - 1))
+                            i.mdi.mdi-arrow-left-bold
+                    else
+                        button.btn.btn-outline-secondary.disabled(type='button')
+                            i.mdi.mdi-arrow-left-bold
+
+                    - var totalcurrentPages = totalPages;
+
+                    // Show first 6 currentPages if total currentPages more than 6
+                    if totalcurrentPages > 6
+                        - for (var x = 0; x < 6; x++)
+                            if currentPage - 1 == x
+                                button.btn.btn-primary(type='button') #{x + 1}
+                            else
+                                button.ChooseButton.btn.btn-outline-secondary(type='button' data='currentPage='+(x + 1)) #{x + 1}
+                        button.btn.btn-outline-secondary.disabled(type='button') ...
+
+                        // Show middle currentPages based on the current currentPage if greater than 5
+                        if currentPage - 1 > 5 && currentPage < totalcurrentPages - 5
+                            - for (var x = currentPage - 2; x < currentPage + 1; x++)
+                                if currentPage - 1 == x
+                                    button.btn.btn-primary(type='button') #{x + 1}
+                                else
+                                    button.ChooseButton.btn.btn-outline-secondary(type='button' data='currentPage='+(x + 1)) #{x + 1}
+                            button.btn.btn-outline-secondary.disabled(type='button') ...
+
+                        // Show last 6 currentPages
+                        - for (var x = totalcurrentPages - 6; x < totalcurrentPages; x++)
+                            if currentPage - 1 == x
+                                button.btn.btn-primary(type='button' )  #{x + 1}
+                            else
+                                button.ChooseButton.btn.btn-outline-secondary(type='button' data='currentPage='+(x + 1)) #{x + 1}
+
+                    else
+                        // Show all currentPages if less than or equal to 6 currentPages
+                        - for (var x = 0; x < totalcurrentPages; x++)
+                            if currentPage - 1 == x
+                                button.btn.btn-primary(type='button') #{x + 1}
+                            else
+                                button.ChooseButton.btn.btn-outline-secondary(type='button' data='currentPage='+(x + 1)) #{x + 1}
+
+                    // Next Button
+                    if currentPage + 1 <= totalcurrentPages
+                        button#NextButton.btn.btn-outline-secondary(type='button' data='currentPage='+(x + 1))
+                            i.mdi.mdi-arrow-right-bold
+                    else
+                        button.btn.btn-outline-secondary.disabled(type='button')
+                            i.mdi.mdi-arrow-right-bold
+
+        td(colspan=4) #{totalResults} ta element mavjut
